@@ -354,10 +354,12 @@ function renderCart() {
   container.innerHTML = Cart.items.map(item => {
     const product = PRODUCTS.find(p => p.id === item.id);
     if (!product) return '';
+    const imgStyle = product.img ? `background-image: url('${product.img}?width=200'); background-size: cover; background-position: center;` : `background: ${product.gradient};`;
+    const iconHtml = product.img ? '' : `<span>${product.icon}</span>`;
     return `
       <div class="cart-item">
-        <div class="cart-item-image" style="background: ${product.gradient};">
-          <span>${product.icon}</span>
+        <div class="cart-item-image" style="${imgStyle}">
+          ${iconHtml}
         </div>
         <div class="cart-item-info">
           <h3><a href="product.html?id=${product.id}">${product.name}</a></h3>
@@ -400,37 +402,8 @@ function updateCartSummary() {
 }
 
 // ===== Checkout =====
-function initCheckout() {
-  const btn = document.getElementById('checkoutBtn');
-  const modal = document.getElementById('checkoutModal');
-  const closeBtn = document.getElementById('modalClose');
-  const form = document.getElementById('checkoutForm');
-  const successModal = document.getElementById('successModal');
-
-  if (btn && modal) {
-    btn.addEventListener('click', () => {
-      if (Cart.items.length === 0) { showToast('السلة فارغة!'); return; }
-      modal.classList.add('active');
-    });
-  }
-  if (closeBtn && modal) {
-    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-  }
-  if (modal) {
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-  }
-  if (form && successModal) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      modal.classList.remove('active');
-      Cart.clear();
-      successModal.classList.add('active');
-    });
-  }
-  if (successModal) {
-    successModal.addEventListener('click', (e) => { if (e.target === successModal) successModal.classList.remove('active'); });
-  }
-}
+// Checkout is handled by cart.html inline script (Moyasar integration)
+function initCheckout() {}
 
 // ===== Contact Form =====
 function initContactForm() {

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://az212z.github.io/souq-alzein/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
