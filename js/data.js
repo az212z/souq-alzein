@@ -1,0 +1,47 @@
+// ===== Product Data =====
+const PRODUCTS = [
+  // Watches
+  { id: 1, name: "ساعة كلاسيك فاخرة", category: "watches", price: 1299, oldPrice: 1599, rating: 4.9, reviews: 128, badge: "الأكثر مبيعاً", gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", icon: "⌚", featured: true, isNew: false, desc: "ساعة كلاسيكية فاخرة بتصميم عصري وأرقام رومانية، سوار جلد إيطالي أصلي، مقاومة للماء حتى 50 متر، حركة يابانية دقيقة. مثالية لمن يبحث عن الأناقة والتميز.", specs: ["سوار جلد إيطالي", "مقاومة للماء 50م", "حركة يابانية", "زجاج سافاير"] },
+  { id: 2, name: "ساعة ذكية برو", category: "watches", price: 899, oldPrice: 1099, rating: 4.7, reviews: 95, badge: "جديد", gradient: "linear-gradient(135deg, #0c3483 0%, #a2b6df 100%)", icon: "⌚", featured: true, isNew: true, desc: "ساعة ذكية متطورة بشاشة AMOLED، تتبع اللياقة، قياس ضغط الدم والأكسجين، بطارية تدوم 7 أيام. رفيقك المثالي لليوم المشغول.", specs: ["شاشة AMOLED", "بطارية 7 أيام", "قياس الأكسجين", "GPS مدمج"] },
+  { id: 3, name: "ساعة رياضية مقاومة", category: "watches", price: 599, oldPrice: null, rating: 4.5, reviews: 67, badge: null, gradient: "linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%)", icon: "⌚", featured: false, isNew: false, desc: "ساعة رياضية بمتانة عالية، مقاومة للصدمات والماء، مثالية للمغامرات والرياضات القاسية.", specs: ["مقاومة صدمات", "ماء 100م", "إضاءة ليلية", "منبه متعدد"] },
+  { id: 4, name: "ساعة أنيقة نسائية", category: "watches", price: 749, oldPrice: 899, rating: 4.8, reviews: 82, badge: "خصم", gradient: "linear-gradient(135deg, #ee9ca7 0%, #ffdde1 100%)", icon: "⌚", featured: true, isNew: false, desc: "ساعة أنيقة بتصميم نسائي راقي، مرصعة بالكريستال، سوار فولاذ ذهبي.", specs: ["كريستال سواروفسكي", "فولاذ ذهبي", "مقاومة ماء 30م", "وزن خفيف"] },
+
+  // Perfumes
+  { id: 5, name: "عطر العود الملكي", category: "perfumes", price: 450, oldPrice: 550, rating: 4.9, reviews: 210, badge: "الأكثر مبيعاً", gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", icon: "🧴", featured: true, isNew: false, desc: "عطر عود ملكي فاخر بمزيج العود الكمبودي والورد الطائفي، رائحة تدوم طوال اليوم في عبارة زجاجية أنيقة.", specs: ["عود كمبودي", "ورد طائفي", "يدوم 12+ ساعة", "100 مل"] },
+  { id: 6, name: "عطر المسك الأبيض", category: "perfumes", price: 299, oldPrice: null, rating: 4.6, reviews: 156, badge: null, gradient: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)", icon: "🧴", featured: false, isNew: true, desc: "عطر المسك الأبيض النقي — هدوء وأناقة في كل رشة. مثالي للاستخدام اليومي.", specs: ["مسك أبيض نقي", "50 مل", "يدوم 8 ساعات", "عبوة سفر"] },
+  { id: 7, name: "عطر الليالي", category: "perfumes", price: 380, oldPrice: 420, rating: 4.7, reviews: 98, badge: "خصم", gradient: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)", icon: "🧴", featured: true, isNew: false, desc: "عطر مسائي ساحر بمزيج العنبر والفانيلا والبانتا. للمناسبات الخاصة والسهرات.", specs: ["عنبر فانيلا", "75 مل", "يدوم 10+ ساعة", "صندوق فاخر"] },
+  { id: 8, name: "عطر الفجر", category: "perfumes", price: 199, oldPrice: null, rating: 4.4, reviews: 45, badge: null, gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)", icon: "🧴", featured: false, isNew: true, desc: "عطر منعش صباحي بمزيج الحمضيات والنعناع — بداية منعشة لكل يوم.", specs: ["حمضيات منعشة", "30 مل", "يدوم 6 ساعات", "رش عملي"] },
+
+  // Electronics
+  { id: 9, name: "سماعة لاسلكية برو", category: "electronics", price: 699, oldPrice: 899, rating: 4.8, reviews: 312, badge: "الأكثر مبيعاً", gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", icon: "📱", featured: true, isNew: false, desc: "سماعة لاسلكية بعزل نشط، صوت Hi-Fi، بطارية 30 ساعة، مقاومة للماء IPX5.", specs: ["عزل نشط ANC", "بلوتوث 5.3", "بطارية 30 ساعة", "IPX5"] },
+  { id: 10, name: "شاحن مغناطيسي سريع", category: "electronics", price: 149, oldPrice: null, rating: 4.5, reviews: 89, badge: null, gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)", icon: "📱", featured: false, isNew: true, desc: "شاحن مغناطيسي لاسلكي 15W — شحن سريع وآمن لجميع الأجهزة.", specs: ["15W سريع", "مغناطيسي", "متوافق MagSafe", "LED مؤشر"] },
+  { id: 11, name: "باور بانك 20000", category: "electronics", price: 199, oldPrice: 249, rating: 4.6, reviews: 145, badge: "خصم", gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", icon: "📱", featured: true, isNew: false, desc: "باور بانك 20000 mAh بشحن سريع 65W — يشحن اللابتوب والهاتف.", specs: ["20000 mAh", "65W PD", "شحن لابتوب", "LED رقمي"] },
+  { id: 12, name: "سبيكر بلوتوث مقاوم للماء", category: "electronics", price: 349, oldPrice: null, rating: 4.7, reviews: 76, badge: "جديد", gradient: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)", icon: "📱", featured: false, isNew: true, desc: "سبيكر بلوتوث بصوت 360° مقاوم للماء IPX7 — للمسبح والسفر.", specs: ["صوت 360°", "IPX7", "بطارية 12 ساعة", "وزن خفيف"] },
+
+  // Fashion
+  { id: 13, name: "نظارة شمسية فاخرة", category: "fashion", price: 599, oldPrice: 799, rating: 4.8, reviews: 167, badge: "خصم", gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", icon: "👔", featured: true, isNew: false, desc: "نظارة شمسية بتصميم كلاسيكي، عدسات مستقطبة، حماية UV400 كاملة.", specs: ["UV400", "عدسات مستقطبة", "إطار تيتانيوم", "غرفة جلدية"] },
+  { id: 14, name: "محفظة جلد طبيعي", category: "fashion", price: 299, oldPrice: null, rating: 4.6, reviews: 93, badge: null, gradient: "linear-gradient(135deg, #834d9b 0%, #d04ed6 100%)", icon: "👔", featured: false, isNew: false, desc: "محفظة جلد طبيعي 100% بحماية RFID — أنيقة وآمنة.", specs: ["جلد طبيعي", "RFID حماية", "12 خانة بطاقة", "صندوق هدايا"] },
+  { id: 15, name: "حقيبة ظهر ذكية", category: "fashion", price: 449, oldPrice: 549, rating: 4.7, reviews: 112, badge: "الأكثر مبيعاً", gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)", icon: "👔", featured: true, isNew: false, desc: "حقيبة ظهر مقاومة للماء بمنفذ شحن USB مدمج — للموظفين والطلاب.", specs: ["USB مدمج", "مقاومة ماء", "لابتوب 15.6", "خفيفة الوزن"] },
+  { id: 16, name: "حزام جلد إيطالي", category: "fashion", price: 199, oldPrice: null, rating: 4.4, reviews: 58, badge: null, gradient: "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)", icon: "👔", featured: false, isNew: true, desc: "حزام جلد إيطالي أصلي بإبزيم كلاسيكي — لمسة أناقة لكل إطلالة.", specs: ["جلد إيطالي", "إبزيم فولاذ", "مقاسات متعددة", "صندوق فاخر"] },
+
+  // Home
+  { id: 17, name: "مبخرة كهربائية ذكية", category: "home", price: 349, oldPrice: 449, rating: 4.8, reviews: 134, badge: "الأكثر مبيعاً", gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)", icon: "🏠", featured: true, isNew: false, desc: "مبخرة كهربائية ذكية بتحكم عبر التطبيق — ضبط وقت وكثافة البخور عن بعد.", specs: ["تحكم تطبيق", "شحن USB-C", "بطارية 8 ساعات", "LED مؤشر"] },
+  { id: 18, name: "كوب ترمو ذكي", category: "home", price: 199, oldPrice: null, rating: 4.5, reviews: 87, badge: null, gradient: "linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)", icon: "🏠", featured: false, isNew: true, desc: "كوب ترمو ذكي يحافظ على درجة حرارة المشروب — مثالي للمكتب والسيارة.", specs: ["تحكم حرارة", "شحن لاسلكي", "سعة 400 مل", "ستانلس ستيل"] },
+  { id: 19, name: "شمعة عطرية فاخرة", category: "home", price: 129, oldPrice: 159, rating: 4.6, reviews: 65, badge: "خصم", gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)", icon: "🏠", featured: false, isNew: false, desc: "شمعة عطرية من شمع الصويا الطبيعي — رائحة اللافندر والفانيلا للاسترخاء.", specs: ["شمع صويا", "لافندر وفانيلا", "يدوم 50 ساعة", "عبوة أنيقة"] },
+  { id: 20, name: "ديفوزر عطر الغرفة", category: "home", price: 249, oldPrice: null, rating: 4.7, reviews: 43, badge: "جديد", gradient: "linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)", icon: "🏠", featured: false, isNew: true, desc: "ديفوزر عطر ذكي بـ 3 سرعات — يملئ غرفتك برائحة منعشة تلقائياً.", specs: ["3 سرعات", "تايمر مدمج", "خزان 300 مل", "هدوء تام"] },
+
+  // Accessories
+  { id: 21, name: "خاتم فضة عيار 925", category: "accessories", price: 399, oldPrice: 499, rating: 4.9, reviews: 178, badge: "الأكثر مبيعاً", gradient: "linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)", icon: "💎", featured: true, isNew: false, desc: "خاتم فضة عيار 925 بتصميم عربي أصيل — قطعة فنية تراثية بلمسة عصرية.", specs: ["فضة 925", "تصميم عربي", "مقاسات متعددة", "صندوق فاخر"] },
+  { id: 22, name: "سلسال ذهب عيار 18", category: "accessories", price: 1899, oldPrice: 2199, rating: 4.8, reviews: 56, badge: "خصم", gradient: "linear-gradient(135deg, #f5af19 0%, #f12711 100%)", icon: "💎", featured: true, isNew: false, desc: "سلسال ذهب عيار 18 بتصميم إيطالي أنيق — استثمار في الأناقة.", specs: ["ذهب عيار 18", "40 سم + 5 سم", "تصميم إيطالي", "شهادة أصالة"] },
+  { id: 23, name: "أسورة جلد مميزة", category: "accessories", price: 149, oldPrice: null, rating: 4.4, reviews: 92, badge: null, gradient: "linear-gradient(135deg, #c1dfc4 0%, #deecdd 100%)", icon: "💎", featured: false, isNew: true, desc: "أسورة جلد طبيعي بفصوص مضيئة — لمسة تميز لكل إطلالة.", specs: ["جلد طبيعي", "فصوص مضيئة", "مقاس قابل للتعديل", "غرفة قطيفة"] },
+  { id: 24, name: "قلادة كريستال", category: "accessories", price: 279, oldPrice: null, rating: 4.6, reviews: 47, badge: "جديد", gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", icon: "💎", featured: false, isNew: true, desc: "قلادة كريستال سواروفسكي بتصميم هندسي عصري — هدية مثالية.", specs: ["سواروفسكي", "سلسلة فضة", "طول 45 سم", "صندوق هدايا"] }
+];
+
+const CATEGORY_NAMES = {
+  watches: "ساعات",
+  perfumes: "عطور",
+  electronics: "إلكترونيات",
+  fashion: "أزياء",
+  home: "المنزل",
+  accessories: "إكسسوارات"
+};

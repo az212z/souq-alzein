@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تواصل معنا — سوق الزين</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span class="logo-icon">🛍️</span><span class="logo-text">سوق الزين</span></a>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="products.html" class="nav-link">المنتجات</a>
+        <a href="about.html" class="nav-link">من نحن</a>
+        <a href="contact.html" class="nav-link active">تواصل معنا</a>
+        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+      </nav>
+      <div class="header-actions">
+        <a href="cart.html" class="cart-btn" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count" id="cartCount">0</span></a>
+        <button class="menu-btn" id="menuToggle" aria-label="القائمة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="contact-page">
+    <div class="container">
+      <div class="page-header">
+        <h1>تواصل معنا</h1>
+        <p>نحن هنا لمساعدتك — تواصل معنا بأي طريقة تناسبك</p>
+      </div>
+
+      <div class="contact-layout">
+        <div class="contact-info">
+          <div class="contact-card">
+            <div class="contact-icon">📍</div>
+            <h3>العنوان</h3>
+            <p>الرياض، المملكة العربية السعودية<br>طريق الملك فهد، برج الزين</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">📧</div>
+            <h3>البريد الإلكتروني</h3>
+            <p>info@souq-alzein.com</p>
+            <p>support@souq-alzein.com</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">📱</div>
+            <h3>الهاتف</h3>
+            <p dir="ltr">+966 50 000 0000</p>
+            <p dir="ltr">+966 11 000 0000</p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">⏰</div>
+            <h3>ساعات العمل</h3>
+            <p>الأحد - الخميس: 9 ص - 10 م</p>
+            <p>الجمعة - السبت: 2 م - 10 م</p>
+          </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+          <h2>أرسل لنا رسالة</h2>
+          <form class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>الاسم</label>
+                <input type="text" required placeholder="اسمك الكامل">
+              </div>
+              <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" required placeholder="example@email.com" dir="ltr">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>الموضوع</label>
+              <select required>
+                <option value="">اختر الموضوع</option>
+                <option>استفسار عام</option>
+                <option>مشكلة في الطلب</option>
+                <option>إرجاع واستبدال</option>
+                <option>اقتراح</option>
+                <option>شكوى</option>
+                <option>أخرى</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>الرسالة</label>
+              <textarea required rows="5" placeholder="اكتب رسالتك هنا..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">إرسال الرسالة</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Map placeholder -->
+      <div class="map-section">
+        <div class="map-placeholder">
+          <div class="map-pin">📍</div>
+          <p>الرياض، المملكة العربية السعودية</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-icon">🛍️</span><span class="logo-text">سوق الزين</span></a><p>متجرك الإلكتروني للمنتجات المميزة</p></div>
+        <div class="footer-links"><h4>روابط سريعة</h4><a href="products.html">المنتجات</a><a href="about.html">من نحن</a><a href="contact.html">تواصل معنا</a></div>
+        <div class="footer-links"><h4>السياسات</h4><a href="policy.html">سياسة الإرجاع</a><a href="policy.html">سياسة الخصوصية</a></div>
+        <div class="footer-links"><h4>تواصل معنا</h4><p>info@souq-alzein.com</p><p dir="ltr">+966 50 000 0000</p></div>
+      </div>
+      <div class="footer-bottom"><p>© 2026 سوق الزين. جميع الحقوق محفوظة.</p></div>
+    </div>
+  </footer>
+  <div class="toast" id="toast"></div>
+  <script src="js/data.js"></script><script src="js/cart.js"></script><script src="js/app.js"></script>
+</body>
+</html>

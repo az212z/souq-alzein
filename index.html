@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سوق الزين — تسوق بأناقة</title>
+  <meta name="description" content="سوق الزين — متجرك الإلكتروني للمنتجات المميزة بتصميم عصري وجودة عالية">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🛍️</span>
+        <span class="logo-text">سوق الزين</span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link active">الرئيسية</a>
+        <a href="products.html" class="nav-link">المنتجات</a>
+        <a href="about.html" class="nav-link">من نحن</a>
+        <a href="contact.html" class="nav-link">تواصل معنا</a>
+        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+      </nav>
+      <div class="header-actions">
+        <button class="search-btn" id="searchToggle" aria-label="بحث">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <a href="cart.html" class="cart-btn" id="cartBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="menu-btn" id="menuToggle" aria-label="القائمة">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="container">
+        <input type="text" id="searchInput" placeholder="ابحث عن منتج..." class="search-input" autocomplete="off">
+        <button class="search-close" id="searchClose">&times;</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-gradient"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <span class="hero-badge">مجموعة 2026 الجديدة</span>
+        <h1 class="hero-title">تسوّق <span class="highlight">بأناقة</span><br>واعثر على تميّزك</h1>
+        <p class="hero-desc">اكتشف مجموعة فريدة من المنتجات المختارة بعناية — جودة استثنائية وتصميم عصري يعكس ذوقك</p>
+        <div class="hero-actions">
+          <a href="products.html" class="btn btn-primary">تصفح المنتجات</a>
+          <a href="#categories" class="btn btn-outline">الأقسام</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">+500</span><span class="stat-label">منتج مميز</span></div>
+          <div class="stat"><span class="stat-num">+10K</span><span class="stat-label">عميل سعيد</span></div>
+          <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">دعم متواصل</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card hero-card-1">
+          <div class="card-img" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+          <span>ساعات فاخرة</span>
+        </div>
+        <div class="hero-card hero-card-2">
+          <div class="card-img" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+          <span>عطور مميزة</span>
+        </div>
+        <div class="hero-card hero-card-3">
+          <div class="card-img" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+          <span>إلكترونيات</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">الأقسام</span>
+        <h2 class="section-title">تصفح حسب القسم</h2>
+      </div>
+      <div class="categories-grid">
+        <a href="products.html?cat=watches" class="category-card">
+          <div class="category-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">⌚</div>
+          <h3>ساعات</h3>
+          <p>+120 منتج</p>
+        </a>
+        <a href="products.html?cat=perfumes" class="category-card">
+          <div class="category-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">🧴</div>
+          <h3>عطور</h3>
+          <p>+85 منتج</p>
+        </a>
+        <a href="products.html?cat=electronics" class="category-card">
+          <div class="category-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">📱</div>
+          <h3>إلكترونيات</h3>
+          <p>+200 منتج</p>
+        </a>
+        <a href="products.html?cat=fashion" class="category-card">
+          <div class="category-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">👔</div>
+          <h3>أزياء</h3>
+          <p>+95 منتج</p>
+        </a>
+        <a href="products.html?cat=home" class="category-card">
+          <div class="category-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">🏠</div>
+          <h3>المنزل</h3>
+          <p>+60 منتج</p>
+        </a>
+        <a href="products.html?cat=accessories" class="category-card">
+          <div class="category-icon" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">💎</div>
+          <h3>إكسسوارات</h3>
+          <p>+75 منتج</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">الأكثر مبيعاً</span>
+        <h2 class="section-title">منتجات مميزة لك</h2>
+        <a href="products.html" class="section-link">عرض الكل ←</a>
+      </div>
+      <div class="products-grid" id="featuredProducts"></div>
+    </div>
+  </section>
+
+  <!-- Banner -->
+  <section class="promo-banner">
+    <div class="container">
+      <div class="banner-content">
+        <span class="banner-badge">عرض محدود</span>
+        <h2>خصم حتى <span class="highlight">50%</span><br>على المجموعة الجديدة</h2>
+        <p>لا تفوّت الفرصة — العرض ينتهي قريباً</p>
+        <a href="products.html" class="btn btn-primary">تسوّق الآن</a>
+      </div>
+      <div class="banner-visual">
+        <div class="banner-circle"></div>
+        <div class="banner-circle banner-circle-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Arrivals -->
+  <section class="new-arrivals">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">جديدنا</span>
+        <h2 class="section-title">وصل حديثاً</h2>
+        <a href="products.html" class="section-link">عرض الكل ←</a>
+      </div>
+      <div class="products-grid" id="newProducts"></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🚚</div>
+          <h3>شحن مجاني</h3>
+          <p>للطلبات فوق 200 ريال</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>إرجاع سهل</h3>
+          <p>خلال 30 يوم بدون أسئلة</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>دفع آمن</h3>
+          <p>تشفير 100% لبياناتك</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>دعم 24/7</h3>
+          <p>نحن هنا دائماً لمساعدتك</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-content">
+        <h2>كن أول من يعرف</h2>
+        <p>اشترك في نشرتنا البريدية واحصل على عروض حصرية</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="بريدك الإلكتروني" required>
+          <button type="submit" class="btn btn-primary">اشترك</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-icon">🛍️</span>
+            <span class="logo-text">سوق الزين</span>
+          </a>
+          <p>متجرك الإلكتروني للمنتجات المميزة — جودة، أناقة، تميّز</p>
+          <div class="social-links">
+            <a href="#" aria-label="تويتر">𝕏</a>
+            <a href="#" aria-label="انستغرام">📷</a>
+            <a href="#" aria-label="سناب شات">👻</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>روابط سريعة</h4>
+          <a href="products.html">المنتجات</a>
+          <a href="about.html">من نحن</a>
+          <a href="contact.html">تواصل معنا</a>
+          <a href="faq.html">الأسئلة الشائعة</a>
+        </div>
+        <div class="footer-links">
+          <h4>السياسات</h4>
+          <a href="policy.html">سياسة الإرجاع</a>
+          <a href="policy.html">سياسة الخصوصية</a>
+          <a href="policy.html">الشروط والأحكام</a>
+          <a href="policy.html">سياسة الشحن</a>
+        </div>
+        <div class="footer-links">
+          <h4>تواصل معنا</h4>
+          <p>الرياض، المملكة العربية السعودية</p>
+          <p>info@souq-alzein.com</p>
+          <p dir="ltr">+966 50 000 0000</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 سوق الزين. جميع الحقوق محفوظة.</p>
+        <div class="payment-methods">
+          <span>💳 Visa</span>
+          <span>💳 Mastercard</span>
+          <span>📱 Apple Pay</span>
+          <span>🏦 مدى</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

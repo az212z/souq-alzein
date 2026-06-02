@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سلة التسوق — سوق الزين</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span class="logo-icon">🛍️</span><span class="logo-text">سوق الزين</span></a>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="products.html" class="nav-link">المنتجات</a>
+        <a href="about.html" class="nav-link">من نحن</a>
+        <a href="contact.html" class="nav-link">تواصل معنا</a>
+        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+      </nav>
+      <div class="header-actions">
+        <a href="cart.html" class="cart-btn active" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count" id="cartCount">0</span></a>
+        <button class="menu-btn" id="menuToggle" aria-label="القائمة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="cart-page">
+    <div class="container">
+      <div class="page-header">
+        <h1>سلة التسوق</h1>
+      </div>
+
+      <div class="cart-layout">
+        <div class="cart-items" id="cartItems">
+          <!-- Filled by JS -->
+        </div>
+
+        <div class="cart-summary" id="cartSummary">
+          <h2>ملخص الطلب</h2>
+          <div class="summary-row">
+            <span>المجموع الفرعي</span>
+            <span id="subtotal">0 ر.س</span>
+          </div>
+          <div class="summary-row">
+            <span>الشحن</span>
+            <span id="shipping">مجاني</span>
+          </div>
+          <div class="summary-row">
+            <span>الضريبة (15%)</span>
+            <span id="tax">0 ر.س</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-row summary-total">
+            <span>الإجمالي</span>
+            <span id="total">0 ر.س</span>
+          </div>
+          <button class="btn btn-primary btn-block" id="checkoutBtn">إتمام الشراء</button>
+          <a href="products.html" class="continue-shopping">← متابعة التسوق</a>
+        </div>
+      </div>
+
+      <!-- Empty Cart -->
+      <div class="empty-cart" id="emptyCart" style="display:none">
+        <div class="empty-cart-icon">🛒</div>
+        <h2>سلتك فارغة</h2>
+        <p>لم تضف أي منتجات بعد — تصفح منتجاتنا المميزة</p>
+        <a href="products.html" class="btn btn-primary">تصفح المنتجات</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Checkout Modal -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>إتمام الطلب</h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <form class="checkout-form" id="checkoutForm">
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" required placeholder="محمد أحمد">
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" required placeholder="example@email.com">
+        </div>
+        <div class="form-group">
+          <label>رقم الجوال</label>
+          <input type="tel" required placeholder="+966 5X XXX XXXX" dir="ltr">
+        </div>
+        <div class="form-group">
+          <label>المدينة</label>
+          <select required>
+            <option value="">اختر المدينة</option>
+            <option>الرياض</option>
+            <option>جدة</option>
+            <option>الدمام</option>
+            <option>مكة المكرمة</option>
+            <option>المدينة المنورة</option>
+            <option>أبها</option>
+            <option>تبوك</option>
+            <option>أخرى</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>العنوان التفصيلي</label>
+          <textarea required placeholder="الحي، الشارع، رقم المبنى..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>طريقة الدفع</label>
+          <div class="payment-options">
+            <label class="payment-option">
+              <input type="radio" name="payment" value="card" checked>
+              <span>💳 بطاقة ائتمان</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="apple">
+              <span>📱 Apple Pay</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="mada">
+              <span>🏦 مدى</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="cod">
+              <span>💵 الدفع عند الاستلام</span>
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">تأكيد الطلب</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal modal-sm">
+      <div class="success-icon">✅</div>
+      <h2>تم تأكيد طلبك!</h2>
+      <p>شكراً لتسوقك معنا — ستصلك رسالة تأكيد على بريدك الإلكتروني</p>
+      <a href="index.html" class="btn btn-primary">العودة للرئيسية</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container"><div class="footer-bottom"><p>© 2026 سوق الزين. جميع الحقوق محفوظة.</p></div></div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

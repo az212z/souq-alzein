@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المنتجات — سوق الزين</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span class="logo-icon">🛍️</span><span class="logo-text">سوق الزين</span></a>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="products.html" class="nav-link active">المنتجات</a>
+        <a href="about.html" class="nav-link">من نحن</a>
+        <a href="contact.html" class="nav-link">تواصل معنا</a>
+        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+      </nav>
+      <div class="header-actions">
+        <button class="search-btn" id="searchToggle" aria-label="بحث"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+        <a href="cart.html" class="cart-btn" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count" id="cartCount">0</span></a>
+        <button class="menu-btn" id="menuToggle" aria-label="القائمة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+      </div>
+    </div>
+    <div class="search-overlay" id="searchOverlay"><div class="container"><input type="text" id="searchInput" placeholder="ابحث عن منتج..." class="search-input" autocomplete="off"><button class="search-close" id="searchClose">&times;</button></div></div>
+  </header>
+
+  <main class="products-page">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>جميع المنتجات</h1>
+        <p>اكتشف مجموعتنا المميزة من المنتجات عالية الجودة</p>
+      </div>
+
+      <!-- Filters Bar -->
+      <div class="filters-bar">
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all">الكل</button>
+          <button class="filter-btn" data-filter="watches">ساعات</button>
+          <button class="filter-btn" data-filter="perfumes">عطور</button>
+          <button class="filter-btn" data-filter="electronics">إلكترونيات</button>
+          <button class="filter-btn" data-filter="fashion">أزياء</button>
+          <button class="filter-btn" data-filter="home">المنزل</button>
+          <button class="filter-btn" data-filter="accessories">إكسسوارات</button>
+        </div>
+        <div class="sort-group">
+          <select id="sortSelect" class="sort-select">
+            <option value="default">ترتيب حسب</option>
+            <option value="price-asc">السعر: الأقل أولاً</option>
+            <option value="price-desc">السعر: الأعلى أولاً</option>
+            <option value="name">الاسم</option>
+            <option value="rating">التقييم</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid products-grid-full" id="allProducts"></div>
+
+      <!-- No Results -->
+      <div class="no-results" id="noResults" style="display:none">
+        <div class="no-results-icon">🔍</div>
+        <h3>لم يتم العثور على منتجات</h3>
+        <p>جرب كلمات بحث مختلفة أو غير الفلتر</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span class="logo-icon">🛍️</span><span class="logo-text">سوق الزين</span></a>
+          <p>متجرك الإلكتروني للمنتجات المميزة</p>
+        </div>
+        <div class="footer-links"><h4>روابط سريعة</h4><a href="products.html">المنتجات</a><a href="about.html">من نحن</a><a href="contact.html">تواصل معنا</a></div>
+        <div class="footer-links"><h4>السياسات</h4><a href="policy.html">سياسة الإرجاع</a><a href="policy.html">سياسة الخصوصية</a><a href="policy.html">الشروط والأحكام</a></div>
+        <div class="footer-links"><h4>تواصل معنا</h4><p>info@souq-alzein.com</p><p dir="ltr">+966 50 000 0000</p></div>
+      </div>
+      <div class="footer-bottom"><p>© 2026 سوق الزين. جميع الحقوق محفوظة.</p></div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
