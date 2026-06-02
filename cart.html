@@ -331,7 +331,7 @@
         description: description,
         methods: ['creditcard', 'applepay', 'stcpay'],
         supported_networks: ['mada', 'visa', 'mastercard'],
-        callback_url: window.location.origin + window.location.pathname + '?payment=callback',
+        callback_url: 'https://az212z.github.io/souq-alzein/cart.html',
         metadata: {
           order_id: currentOrder,
           customer_phone: customerPhone,
@@ -409,7 +409,10 @@
         // Show Moyasar payment form
         document.getElementById('orderSummaryMini').innerHTML = summaryHTML;
         showStep(2);
-        initMoyasarForm(totals.total, `طلب ${currentOrder} — سوق الزين`, name, email, phone);
+        // Wait for step2 to be visible before initializing Moyasar
+        setTimeout(() => {
+          initMoyasarForm(totals.total, `طلب ${currentOrder} — سوق الزين`, name, email, phone);
+        }, 200);
       } else {
         // COD
         document.getElementById('codSummary').innerHTML = summaryHTML;
