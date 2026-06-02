@@ -7,6 +7,8 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <!-- Moyasar Payment Form SDK -->
+  <script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
 </head>
 <body>
   <header class="header" id="header">
@@ -77,84 +79,137 @@
     </div>
   </main>
 
-  <!-- Checkout Modal -->
+  <!-- Checkout Modal with Moyasar Payment -->
   <div class="modal-overlay" id="checkoutModal">
-    <div class="modal">
+    <div class="modal modal-lg">
       <div class="modal-header">
-        <h2>إتمام الطلب</h2>
+        <h2>🔒 إتمام الطلب — الدفع الآمن</h2>
         <button class="modal-close" id="modalClose">&times;</button>
       </div>
-      <form class="checkout-form" id="checkoutForm">
-        <div class="form-group">
-          <label>الاسم الكامل</label>
-          <input type="text" required placeholder="محمد أحمد">
+
+      <!-- Step 1: Customer Info -->
+      <div class="checkout-step" id="step1">
+        <div class="step-indicator">
+          <div class="step active"><span>1</span> البيانات</div>
+          <div class="step-line"></div>
+          <div class="step"><span>2</span> الدفع</div>
+          <div class="step-line"></div>
+          <div class="step"><span>3</span> التأكيد</div>
         </div>
-        <div class="form-group">
-          <label>البريد الإلكتروني</label>
-          <input type="email" required placeholder="example@email.com">
-        </div>
-        <div class="form-group">
-          <label>رقم الجوال</label>
-          <input type="tel" required placeholder="+966 5X XXX XXXX" dir="ltr">
-        </div>
-        <div class="form-group">
-          <label>المدينة</label>
-          <select required>
-            <option value="">اختر المدينة</option>
-            <option>الرياض</option>
-            <option>جدة</option>
-            <option>الدمام</option>
-            <option>مكة المكرمة</option>
-            <option>المدينة المنورة</option>
-            <option>أبها</option>
-            <option>تبوك</option>
-            <option>أخرى</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>العنوان التفصيلي</label>
-          <textarea required placeholder="الحي، الشارع، رقم المبنى..."></textarea>
-        </div>
-          <div class="form-group">
-          <label>طريقة الدفع — عبر Moyasar 🔒</label>
-          <div class="payment-options">
-            <label class="payment-option">
-              <input type="radio" name="payment" value="mada" checked>
-              <span>🏦 مدى</span>
-            </label>
-            <label class="payment-option">
-              <input type="radio" name="payment" value="card">
-              <span>💳 بطاقة ائتمان</span>
-            </label>
-            <label class="payment-option">
-              <input type="radio" name="payment" value="apple">
-              <span>📱 Apple Pay</span>
-            </label>
-            <label class="payment-option">
-              <input type="radio" name="payment" value="stcpay">
-              <span>💰 STC Pay</span>
-            </label>
-            <label class="payment-option">
-              <input type="radio" name="payment" value="tabby">
-              <span>🧾 Tabby تقسيط</span>
-            </label>
-            <label class="payment-option">
-              <input type="radio" name="payment" value="cod">
-              <span>💵 الدفع عند الاستلام</span>
-            </label>
+
+        <form class="checkout-form" id="customerForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>الاسم الكامل *</label>
+              <input type="text" id="custName" required placeholder="محمد أحمد">
+            </div>
+            <div class="form-group">
+              <label>رقم الجوال *</label>
+              <input type="tel" id="custPhone" required placeholder="05XXXXXXXX" dir="ltr" pattern="05[0-9]{8}">
+            </div>
           </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>البريد الإلكتروني *</label>
+              <input type="email" id="custEmail" required placeholder="example@email.com">
+            </div>
+            <div class="form-group">
+              <label>المدينة *</label>
+              <select id="custCity" required>
+                <option value="">اختر المدينة</option>
+                <option>الرياض</option>
+                <option>جدة</option>
+                <option>الدمام</option>
+                <option>مكة المكرمة</option>
+                <option>المدينة المنورة</option>
+                <option>أبها</option>
+                <option>تبوك</option>
+                <option>القطيف</option>
+                <option>خميس مشيط</option>
+                <option>بريدة</option>
+                <option>نجران</option>
+                <option>الجبيل</option>
+                <option>ينبع</option>
+                <option>أخرى</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>العنوان التفصيلي *</label>
+            <textarea id="custAddress" required placeholder="الحي، الشارع، رقم المبنى، الرمز البريدي..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>طريقة الدفع</label>
+            <div class="payment-options">
+              <label class="payment-option selected">
+                <input type="radio" name="payMethod" value="moyasar" checked>
+                <div class="pay-opt-content">
+                  <span class="pay-opt-title">💳 الدفع الإلكتروني</span>
+                  <span class="pay-opt-desc">مدى · Visa · Mastercard · Apple Pay · STC Pay</span>
+                </div>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="payMethod" value="cod">
+                <div class="pay-opt-content">
+                  <span class="pay-opt-title">💵 الدفع عند الاستلام</span>
+                  <span class="pay-opt-desc">ادفع نقداً عند استلام الشحنة</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="toPaymentBtn">متابعة للدفع →</button>
+        </form>
+      </div>
+
+      <!-- Step 2: Moyasar Payment Form -->
+      <div class="checkout-step hidden" id="step2">
+        <div class="step-indicator">
+          <div class="step completed"><span>✓</span> البيانات</div>
+          <div class="step-line active"></div>
+          <div class="step active"><span>2</span> الدفع</div>
+          <div class="step-line"></div>
+          <div class="step"><span>3</span> التأكيد</div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">تأكيد الطلب</button>
-      </form>
+
+        <div class="order-summary-mini" id="orderSummaryMini"></div>
+
+        <!-- Moyasar Payment Form Mount Point -->
+        <div id="moyasar-payment-form"></div>
+
+        <button class="btn btn-ghost btn-block" id="backToStep1" style="margin-top:12px">← رجوع للبيانات</button>
+      </div>
+
+      <!-- Step 3: COD Confirmation -->
+      <div class="checkout-step hidden" id="step3">
+        <div class="step-indicator">
+          <div class="step completed"><span>✓</span> البيانات</div>
+          <div class="step-line active"></div>
+          <div class="step active"><span>2</span> الدفع</div>
+          <div class="step-line"></div>
+          <div class="step"><span>3</span> التأكيد</div>
+        </div>
+
+        <div class="cod-confirm">
+          <div class="cod-icon">📦</div>
+          <h3>تأكيد طلب الدفع عند الاستلام</h3>
+          <div class="order-summary-mini" id="codSummary"></div>
+          <p class="cod-note">سيتم التواصل معك خلال ساعة لتأكيد الطلب وموعد التوصيل</p>
+          <button class="btn btn-primary btn-block" id="confirmCodBtn">تأكيد الطلب 📦</button>
+          <button class="btn btn-ghost btn-block" id="backFromCod" style="margin-top:8px">← رجوع</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Success Modal -->
   <div class="modal-overlay" id="successModal">
     <div class="modal modal-sm">
-      <div class="success-icon">✅</div>
-      <h2>تم تأكيد طلبك!</h2>
-      <p>شكراً لتسوقك معنا — ستصلك رسالة تأكيد على بريدك الإلكتروني</p>
+      <div class="success-icon">🎉</div>
+      <h2>تم تأكيد طلبك بنجاح!</h2>
+      <p id="successMsg">شكراً لتسوقك معنا — ستصلك رسالة تأكيد على جوالك وبريدك الإلكتروني</p>
+      <div class="order-number" id="orderNumber"></div>
       <a href="index.html" class="btn btn-primary">العودة للرئيسية</a>
     </div>
   </div>
@@ -167,5 +222,216 @@
   <script src="js/data.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/app.js"></script>
+
+  <style>
+    /* Checkout Steps */
+    .checkout-step.hidden{display:none}
+    .step-indicator{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:24px;padding:12px 0}
+    .step-indicator .step{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.75rem;color:var(--text-light)}
+    .step-indicator .step span{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);border:2px solid var(--border);font-weight:700;font-size:.8rem}
+    .step-indicator .step.active span{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .step-indicator .step.completed span{background:var(--gold);color:var(--primary);border-color:var(--gold)}
+    .step-line{flex:1;height:2px;background:var(--border);margin:0 8px;min-width:30px}
+    .step-line.active{background:var(--accent)}
+
+    .modal-lg{max-width:640px;width:95%}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:600px){.form-row{grid-template-columns:1fr}}
+
+    /* Payment Options Enhanced */
+    .payment-options{display:flex;flex-direction:column;gap:10px}
+    .payment-option{display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s}
+    .payment-option:hover{border-color:var(--accent)}
+    .payment-option.selected{border-color:var(--accent);background:rgba(233,69,96,.08)}
+    .payment-option input[type="radio"]{width:18px;height:18px;accent-color:var(--accent)}
+    .pay-opt-content{display:flex;flex-direction:column;gap:2px}
+    .pay-opt-title{font-weight:700;font-size:.95rem}
+    .pay-opt-desc{font-size:.75rem;color:var(--text-light)}
+
+    /* Order Summary Mini */
+    .order-summary-mini{background:var(--bg);border-radius:12px;padding:16px;margin-bottom:20px}
+    .order-summary-mini .os-row{display:flex;justify-content:space-between;padding:4px 0;font-size:.85rem}
+    .order-summary-mini .os-total{border-top:1px solid var(--border);margin-top:8px;padding-top:8px;font-weight:700;font-size:1rem}
+
+    /* COD Confirm */
+    .cod-confirm{text-align:center;padding:20px 0}
+    .cod-icon{font-size:4rem;margin-bottom:12px}
+    .cod-note{color:var(--text-light);font-size:.85rem;margin:12px 0}
+    .order-number{background:var(--gold);color:var(--primary);padding:10px 20px;border-radius:8px;font-weight:700;margin:16px 0;display:inline-block;font-size:1.1rem}
+
+    /* Moyasar Form Styling */
+    #moyasar-payment-form{min-height:300px}
+    .mpf__container{direction:ltr!important}
+
+    /* Btn Ghost */
+    .btn-ghost{background:transparent;border:2px solid var(--border);color:var(--text);padding:12px 24px;border-radius:12px;cursor:pointer;font-family:inherit;font-size:.9rem;transition:all .2s}
+    .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  </style>
+
+  <script>
+    // ===== Moyasar Payment Integration =====
+    // Test key for development — replace with pk_live_ for production
+    const MOYASAR_PK = 'pk_test_YrKfg4YqGbdQqzKx2T2xgVPiM4A9kNRAfAB3MqRq';
+
+    let currentOrder = null;
+
+    // Generate order ID
+    function generateOrderId() {
+      return 'SZ-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 5).toUpperCase();
+    }
+
+    // Calculate totals from cart
+    function getCartTotals() {
+      const cart = JSON.parse(localStorage.getItem('souq-alzein-cart') || '[]');
+      let subtotal = 0;
+      cart.forEach(item => {
+        const product = PRODUCTS.find(p => p.id === item.id);
+        if (product) subtotal += product.price * item.qty;
+      });
+      const shipping = subtotal >= 200 ? 0 : 25;
+      const tax = Math.round(subtotal * 0.15 * 100) / 100;
+      const total = subtotal + shipping + tax;
+      return { subtotal, shipping, tax, total, items: cart };
+    }
+
+    // Build order summary HTML
+    function buildOrderSummaryHTML(totals) {
+      let itemsHTML = '';
+      totals.items.forEach(item => {
+        const p = PRODUCTS.find(pr => pr.id === item.id);
+        if (p) itemsHTML += `<div class="os-row"><span>${p.name} × ${item.qty}</span><span>${p.price * item.qty} ر.س</span></div>`;
+      });
+      return `
+        ${itemsHTML}
+        <div class="os-row"><span>الشحن</span><span>${totals.shipping === 0 ? 'مجاني' : totals.shipping + ' ر.س'}</span></div>
+        <div class="os-row"><span>الضريبة (15%)</span><span>${totals.tax} ر.س</span></div>
+        <div class="os-row os-total"><span>الإجمالي</span><span>${totals.total} ر.س</span></div>
+      `;
+    }
+
+    // Initialize Moyasar Payment Form
+    function initMoyasarForm(amount, description, customerName, customerEmail, customerPhone) {
+      const mountPoint = document.getElementById('moyasar-payment-form');
+      mountPoint.innerHTML = ''; // Clear previous
+
+      Moyasar.init({
+        element: '#moyasar-payment-form',
+        language: 'ar',
+        publishable_api_key: MOYASAR_PK,
+        amount: Math.round(amount * 100), // Convert to halalas
+        currency: 'SAR',
+        description: description,
+        methods: ['creditcard', 'applepay', 'stcpay'],
+        supported_networks: ['mada', 'visa', 'mastercard'],
+        callback_url: window.location.origin + window.location.pathname + '?payment=callback',
+        metadata: {
+          order_id: currentOrder,
+          customer_phone: customerPhone,
+          source: 'souq-alzein-web'
+        },
+        credit_card: {
+          save_card: true,
+          manual: false
+        },
+        on_completed: async function(payment) {
+          console.log('Payment completed:', payment);
+          handlePaymentSuccess(payment);
+        },
+        on_failure: async function(error) {
+          console.error('Payment failed:', error);
+          showToast('فشل الدفع — حاول مرة أخرى', 'error');
+        }
+      });
+    }
+
+    // Handle successful payment
+    function handlePaymentSuccess(payment) {
+      localStorage.removeItem('souq-alzein-cart');
+      document.getElementById('checkoutModal').style.display = 'none';
+      document.getElementById('orderNumber').textContent = 'رقم الطلب: ' + currentOrder;
+      document.getElementById('successMsg').textContent = 'تم الدفع بنجاح! ستصلك رسالة تأكيد على جوالك وبريدك الإلكتروني';
+      document.getElementById('successModal').style.display = 'flex';
+      updateCartCount();
+      renderCart();
+    }
+
+    // ===== Step Navigation =====
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+      const cart = JSON.parse(localStorage.getItem('souq-alzein-cart') || '[]');
+      if (cart.length === 0) {
+        showToast('سلتك فارغة!', 'error');
+        return;
+      }
+      // Reset to step 1
+      showStep(1);
+      document.getElementById('checkoutModal').style.display = 'flex';
+    });
+
+    function showStep(num) {
+      document.querySelectorAll('.checkout-step').forEach(el => el.classList.add('hidden'));
+      document.getElementById('step' + num).classList.remove('hidden');
+    }
+
+    // Step 1 → Step 2/3
+    document.getElementById('customerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('custName').value;
+      const email = document.getElementById('custEmail').value;
+      const phone = document.getElementById('custPhone').value;
+      const city = document.getElementById('custCity').value;
+      const address = document.getElementById('custAddress').value;
+      const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+
+      const totals = getCartTotals();
+      currentOrder = generateOrderId();
+      const summaryHTML = buildOrderSummaryHTML(totals);
+
+      if (payMethod === 'moyasar') {
+        // Show Moyasar payment form
+        document.getElementById('orderSummaryMini').innerHTML = summaryHTML;
+        showStep(2);
+        initMoyasarForm(totals.total, `طلب ${currentOrder} — سوق الزين`, name, email, phone);
+      } else {
+        // COD
+        document.getElementById('codSummary').innerHTML = summaryHTML;
+        showStep(3);
+      }
+    });
+
+    // Payment option selection visual
+    document.querySelectorAll('.payment-option input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+        radio.closest('.payment-option').classList.add('selected');
+      });
+    });
+
+    // Back buttons
+    document.getElementById('backToStep1').addEventListener('click', () => showStep(1));
+    document.getElementById('backFromCod').addEventListener('click', () => showStep(1));
+
+    // COD confirm
+    document.getElementById('confirmCodBtn').addEventListener('click', () => {
+      localStorage.removeItem('souq-alzein-cart');
+      document.getElementById('checkoutModal').style.display = 'none';
+      document.getElementById('orderNumber').textContent = 'رقم الطلب: ' + currentOrder;
+      document.getElementById('successMsg').textContent = 'تم تأكيد طلبك! سيتواصل معك مندوبنا خلال ساعة لتأكيد موعد التوصيل';
+      document.getElementById('successModal').style.display = 'flex';
+      updateCartCount();
+      renderCart();
+    });
+
+    // Check for payment callback in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('payment') === 'callback') {
+      const status = urlParams.get('status');
+      if (status === 'paid') {
+        localStorage.removeItem('souq-alzein-cart');
+        document.getElementById('orderNumber').textContent = 'رقم الطلب: ' + (urlParams.get('id') || generateOrderId());
+        document.getElementById('successMsg').textContent = 'تم الدفع بنجاح! شكراً لتسوقك معنا';
+        document.getElementById('successModal').style.display = 'flex';
+      }
+    }
+  </script>
 </body>
 </html>
