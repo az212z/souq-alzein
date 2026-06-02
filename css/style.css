@@ -209,7 +209,10 @@ section{padding:80px 0}
 .breadcrumb{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-light);margin-bottom:32px}
 .breadcrumb a:hover{color:var(--accent)}
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:60px}
-.detail-image{height:450px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;position:relative}
+.detail-image{height:450px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;position:relative;background-size:cover;background-position:center;overflow:hidden}
+.detail-gallery{position:absolute;bottom:12px;right:12px;display:flex;gap:6px;z-index:2}
+.gallery-thumb{width:56px;height:56px;border-radius:8px;object-fit:cover;border:2px solid rgba(255,255,255,.3);cursor:pointer;transition:all .2s}
+.gallery-thumb:hover,.gallery-thumb.active{border-color:var(--accent);transform:scale(1.1)}
 .detail-icon{font-size:8rem}
 .detail-category{font-size:.85rem;color:var(--text-lighter);font-weight:500}
 .detail-name{font-size:2rem;font-weight:900;margin:8px 0 16px}

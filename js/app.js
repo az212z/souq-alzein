@@ -109,11 +109,13 @@ function renderPageContent() {
 function createProductCard(product) {
   const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
   const supplierBadge = product.supplier === 'ksadrop' ? '🇸🇦 KSA Drop' : '🇸🇦 M5AZN';
+  const imgStyle = product.img ? `background-image: url('${product.img}?width=600'); background-size: cover; background-position: center;` : `background: ${product.gradient};`;
+  const iconHtml = product.img ? '' : `<span class="product-icon">${product.icon}</span>`;
   return `
     <div class="product-card" data-id="${product.id}" data-category="${product.category}">
       <a href="product.html?id=${product.id}" class="product-link">
-        <div class="product-image" style="background: ${product.gradient};">
-          <span class="product-icon">${product.icon}</span>
+        <div class="product-image" style="${imgStyle}">
+          ${iconHtml}
           ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
           ${discount > 0 ? `<span class="product-discount">-${discount}%</span>` : ''}
           <span class="product-supplier">${supplierBadge}</span>
@@ -254,11 +256,16 @@ function renderProductDetail() {
 
   const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
 
+  const imgStyle = product.img ? `background-image: url('${product.img}?width=800'); background-size: cover; background-position: center;` : `background: ${product.gradient};`;
+  const iconHtml = product.img ? '' : `<span class="detail-icon">${product.icon}</span>`;
+  const galleryHtml = product.imgs && product.imgs.length > 1 ? `<div class="detail-gallery">${product.imgs.map((img, i) => `<img src="${img}?width=100" class="gallery-thumb${i === 0 ? ' active' : ''}" data-full="${img}?width=800" loading="lazy">`).join('')}</div>` : '';
+
   container.innerHTML = `
     <div class="detail-grid">
-      <div class="detail-image" style="background: ${product.gradient};">
-        <span class="detail-icon">${product.icon}</span>
+      <div class="detail-image" style="${imgStyle}">
+        ${iconHtml}
         ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+        ${galleryHtml}
       </div>
       <div class="detail-info">
         <span class="detail-category">${CATEGORY_NAMES[product.category]}</span>
@@ -312,6 +319,18 @@ function renderProductDetail() {
     related.innerHTML = sameCategory.map(createProductCard).join('');
     bindAddToCart(related);
   }
+
+  // Gallery image click handler
+  document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const detailImg = document.querySelector('.detail-image');
+      if (detailImg && thumb.dataset.full) {
+        detailImg.style.backgroundImage = `url('${thumb.dataset.full}')`;
+        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+      }
+    });
+  });
 }
 
 // ===== Cart Page =====
