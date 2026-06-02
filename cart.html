@@ -56,7 +56,13 @@
             <span>الإجمالي</span>
             <span id="total">0 ر.س</span>
           </div>
-          <button class="btn btn-primary btn-block" id="checkoutBtn">إتمام الشراء</button>
+          <button class="btn btn-primary btn-block" id="checkoutBtn">إتمام الشراء — الدفع الآمن 🔒</button>
+          <div class="payment-trust">
+            <span>بوابة دفع Moyasar معتمدة في السعودية</span>
+            <div class="payment-badges">
+              <span>🏦 مدى</span><span>💳 Visa</span><span>💳 Mastercard</span><span>📱 Apple Pay</span><span>💰 STC Pay</span><span>🧾 Tabby</span>
+            </div>
+          </div>
           <a href="products.html" class="continue-shopping">← متابعة التسوق</a>
         </div>
       </div>
@@ -109,11 +115,15 @@
           <label>العنوان التفصيلي</label>
           <textarea required placeholder="الحي، الشارع، رقم المبنى..."></textarea>
         </div>
-        <div class="form-group">
-          <label>طريقة الدفع</label>
+          <div class="form-group">
+          <label>طريقة الدفع — عبر Moyasar 🔒</label>
           <div class="payment-options">
             <label class="payment-option">
-              <input type="radio" name="payment" value="card" checked>
+              <input type="radio" name="payment" value="mada" checked>
+              <span>🏦 مدى</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="card">
               <span>💳 بطاقة ائتمان</span>
             </label>
             <label class="payment-option">
@@ -121,8 +131,12 @@
               <span>📱 Apple Pay</span>
             </label>
             <label class="payment-option">
-              <input type="radio" name="payment" value="mada">
-              <span>🏦 مدى</span>
+              <input type="radio" name="payment" value="stcpay">
+              <span>💰 STC Pay</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="tabby">
+              <span>🧾 Tabby تقسيط</span>
             </label>
             <label class="payment-option">
               <input type="radio" name="payment" value="cod">

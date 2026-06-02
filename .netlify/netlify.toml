@@ -7,7 +7,7 @@ redirects = []
 [functions."*"]
 
 [build]
-publish = "/Users/ali/.openclaw/workspace"
+publish = "/Users/ali/.openclaw/workspace/souq-alzein"
 publishOrigin = "default"
 
 [build.environment]

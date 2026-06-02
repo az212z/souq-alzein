@@ -108,6 +108,7 @@ function renderPageContent() {
 // ===== Product Card =====
 function createProductCard(product) {
   const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
+  const supplierBadge = product.supplier === 'ksadrop' ? '🇸🇦 KSA Drop' : '🇸🇦 M5AZN';
   return `
     <div class="product-card" data-id="${product.id}" data-category="${product.category}">
       <a href="product.html?id=${product.id}" class="product-link">
@@ -115,6 +116,7 @@ function createProductCard(product) {
           <span class="product-icon">${product.icon}</span>
           ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
           ${discount > 0 ? `<span class="product-discount">-${discount}%</span>` : ''}
+          <span class="product-supplier">${supplierBadge}</span>
         </div>
         <div class="product-info">
           <span class="product-category">${CATEGORY_NAMES[product.category]}</span>
