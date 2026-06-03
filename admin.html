@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم — سوق الزين</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏴‍☠️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a1a;
+      --card: #12122a;
+      --border: #2a2a4a;
+      --text: #e0e0f0;
+      --text-dim: #7a7a9a;
+      --accent: #e94560;
+      --green: #00d68f;
+      --blue: #448aff;
+      --gold: #ffd700;
+      --purple: #a855f7;
+    }
+    body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .dashboard { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .header h1 { font-size: 1.4rem; font-weight: 800; }
+    .header h1 span { color: var(--accent); }
+    .header-actions { display: flex; gap: 8px; }
+    .btn { padding: 10px 20px; border: none; border-radius: 10px; font-family: 'Tajawal', sans-serif; font-weight: 600; cursor: pointer; font-size: .85rem; transition: all .2s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #d4374f; transform: translateY(-1px); }
+    .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); }
+    .btn-green { background: var(--green); color: #000; }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-gold { background: var(--gold); color: #000; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--card); border-radius: 16px; padding: 20px; border: 1px solid var(--border); position: relative; overflow: hidden; }
+    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .stat-card:nth-child(1)::before { background: var(--green); }
+    .stat-card:nth-child(2)::before { background: var(--blue); }
+    .stat-card:nth-child(3)::before { background: var(--gold); }
+    .stat-card:nth-child(4)::before { background: var(--purple); }
+    .stat-icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .stat-value { font-size: 1.8rem; font-weight: 900; }
+    .stat-label { font-size: .8rem; color: var(--text-dim); margin-top: 4px; }
+
+    .goal-banner { background: linear-gradient(135deg, var(--accent), #ff6b81); border-radius: 16px; padding: 24px 32px; margin-bottom: 24px; color: #fff; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .goal-info h2 { font-size: 1.3rem; font-weight: 800; }
+    .goal-info p { opacity: .85; font-size: .9rem; }
+    .goal-progress { text-align: center; }
+    .goal-amount { font-size: 2.2rem; font-weight: 900; }
+    .goal-sub { font-size: .8rem; opacity: .7; }
+    .goal-bar { height: 8px; background: rgba(255,255,255,.2); border-radius: 4px; margin-top: 12px; width: 200px; }
+    .goal-bar-fill { height: 100%; background: #fff; border-radius: 4px; transition: width .5s; }
+
+    .section-title { font-size: 1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .tab { padding: 8px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font-family: 'Tajawal'; font-size: .85rem; transition: all .2s; }
+    .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .tab:hover { border-color: var(--accent); }
+
+    .order-card { background: var(--card); border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); transition: all .2s; }
+    .order-card:hover { border-color: var(--accent); }
+    .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .order-id { font-weight: 700; font-size: .95rem; }
+    .order-date { font-size: .8rem; color: var(--text-dim); }
+    .order-customer { font-size: .85rem; color: var(--text-dim); margin-bottom: 8px; }
+    .order-items { font-size: .8rem; color: var(--text-dim); margin-bottom: 8px; }
+    .order-footer { display: flex; justify-content: space-between; align-items: center; }
+    .order-total { font-weight: 900; font-size: 1.1rem; color: var(--green); }
+    .order-profit { font-size: .8rem; color: var(--gold); }
+    .order-actions { display: flex; gap: 8px; }
+    .status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: .75rem; font-weight: 600; }
+    .status-pending { background: rgba(240,173,78,.15); color: #f0ad4e; }
+    .status-confirmed { background: rgba(68,138,255,.15); color: var(--blue); }
+    .status-ordered_from_supplier { background: rgba(68,138,255,.15); color: var(--blue); }
+    .status-shipped { background: rgba(0,214,143,.15); color: var(--green); }
+    .status-delivered { background: rgba(0,214,143,.15); color: var(--green); }
+    .status-cancelled { background: rgba(217,83,79,.15); color: #d9534f; }
+
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-dim); }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+    .empty-state h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text); }
+    .empty-state p { font-size: .9rem; }
+
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .product-mini { background: var(--card); border-radius: 12px; padding: 12px; border: 1px solid var(--border); }
+    .product-mini img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; }
+    .product-mini .name { font-size: .85rem; font-weight: 600; margin-bottom: 4px; }
+    .product-mini .price { color: var(--green); font-weight: 700; font-size: .9rem; }
+    .product-mini .margin { font-size: .7rem; color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .goal-banner { flex-direction: column; text-align: center; }
+      .goal-bar { width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="header">
+      <div>
+        <h1>🏴‍☠️ <span>سوق الزين</span> — لوحة التحكم</h1>
+        <p style="font-size:.8rem;color:var(--text-dim);margin-top:4px;">إدارة الطلبات والمبيعات</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="refreshData()">🔄 تحديث</button>
+        <button class="btn btn-primary" onclick="window.location.href='index.html'">🛍️ المتجر</button>
+      </div>
+    </div>
+
+    <!-- Goal -->
+    <div class="goal-banner">
+      <div class="goal-info">
+        <h2>🎯 هدف المبيعات</h2>
+        <p>أول 300 ريال ربح صافي</p>
+      </div>
+      <div class="goal-progress">
+        <div class="goal-amount" id="goalProfit">0 ر.س</div>
+        <div class="goal-sub">من 300 ر.س ربح صافي</div>
+        <div class="goal-bar">
+          <div class="goal-bar-fill" id="goalBar" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-value" id="totalOrders">0</div>
+        <div class="stat-label">إجمالي الطلبات</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-value" id="totalRevenue">0 ر.س</div>
+        <div class="stat-label">إجمالي المبيعات</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-value" id="totalProfit">0 ر.س</div>
+        <div class="stat-label">صافي الربح</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-value" id="pendingOrders">0</div>
+        <div class="stat-label">طلبات معلقة</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="section-title">📋 الطلبات</div>
+    <div class="tabs">
+      <div class="tab active" onclick="filterOrders('all')">الكل</div>
+      <div class="tab" onclick="filterOrders('pending')">⏳ معلقة</div>
+      <div class="tab" onclick="filterOrders('confirmed')">✅ مؤكدة</div>
+      <div class="tab" onclick="filterOrders('ordered_from_supplier')">📦 مطلوبة</div>
+      <div class="tab" onclick="filterOrders('shipped')">🚚 مشحونة</div>
+      <div class="tab" onclick="filterOrders('delivered')">🎉 مسلمة</div>
+    </div>
+
+    <!-- Orders -->
+    <div id="ordersList">
+      <div class="empty-state">
+        <div class="icon">🛒</div>
+        <h3>لا توجد طلبات بعد</h3>
+        <p>عندما يطلب عميل من المتجر، سيظهر هنا</p>
+        <br>
+        <a href="products.html" class="btn btn-primary">🛍️ تصفح المنتجات</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/order-agent.js"></script>
+  <script>
+    function refreshData() {
+      if (typeof OrderSystem === 'undefined') return;
+
+      const stats = OrderSystem.getStats();
+      document.getElementById('totalOrders').textContent = stats.totalOrders;
+      document.getElementById('totalRevenue').textContent = stats.totalRevenue.toLocaleString('ar-SA') + ' ر.س';
+      document.getElementById('totalProfit').textContent = stats.totalProfit.toLocaleString('ar-SA') + ' ر.س';
+      document.getElementById('pendingOrders').textContent = stats.pendingOrders;
+      
+      // Goal progress
+      const goalProfit = stats.totalProfit;
+      const goalPercent = Math.min((goalProfit / 300) * 100, 100);
+      document.getElementById('goalProfit').textContent = goalProfit.toLocaleString('ar-SA') + ' ر.س';
+      document.getElementById('goalBar').style.width = goalPercent + '%';
+
+      renderOrders('all');
+    }
+
+    function renderOrders(filter) {
+      if (typeof OrderSystem === 'undefined') return;
+      const orders = OrderSystem.getOrders();
+      const filtered = filter === 'all' ? orders : orders.filter(o => o.status === filter);
+      const container = document.getElementById('ordersList');
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">🛒</div>
+            <h3>لا توجد طلبات ${filter !== 'all' ? 'بهذه الحالة' : 'بعد'}</h3>
+            <p>عندما يطلب عميل من المتجر، سيظهر هنا</p>
+          </div>`;
+        return;
+      }
+
+      const statusLabels = {
+        'pending': { text: '⏳ معلق', class: 'status-pending' },
+        'confirmed': { text: '✅ مؤكد', class: 'status-confirmed' },
+        'ordered_from_supplier': { text: '📦 مطلوب من المورد', class: 'status-ordered_from_supplier' },
+        'shipped': { text: '🚚 مشحون', class: 'status-shipped' },
+        'delivered': { text: '🎉 مسلم', class: 'status-delivered' },
+        'cancelled': { text: '❌ ملغي', class: 'status-cancelled' },
+      };
+
+      container.innerHTML = filtered.slice().reverse().map(order => {
+        const status = statusLabels[order.status] || statusLabels['pending'];
+        const items = order.items.map(i => `${i.name} × ${i.qty}`).join(' • ');
+        const actions = getActions(order);
+
+        return `
+          <div class="order-card">
+            <div class="order-header">
+              <div>
+                <span class="order-id">${order.id}</span>
+                <span class="status-badge ${status.class}">${status.text}</span>
+              </div>
+              <span class="order-date">${new Date(order.date).toLocaleDateString('ar-SA')}</span>
+            </div>
+            <div class="order-customer">👤 ${order.customer.name} — ${order.customer.city} — ${order.customer.phone}</div>
+            <div class="order-items">📦 ${items}</div>
+            <div class="order-footer">
+              <div>
+                <span class="order-total">${order.total.toLocaleString('ar-SA')} ر.س</span>
+                <span class="order-profit">ربح: ${order.profit.toLocaleString('ar-SA')} ر.س</span>
+              </div>
+              <div class="order-actions">${actions}</div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function getActions(order) {
+      switch (order.status) {
+        case 'pending':
+          return `<button class="btn btn-green" onclick="approveOrder('${order.id}')" style="padding:6px 12px;font-size:.8rem;">✅ تأكيد</button>
+                  <button class="btn btn-secondary" onclick="cancelOrder('${order.id}')" style="padding:6px 12px;font-size:.8rem;">❌ إلغاء</button>`;
+        case 'confirmed':
+          return `<button class="btn btn-blue" onclick="orderFromSupplier('${order.id}')" style="padding:6px 12px;font-size:.8rem;">📦 اطلب من المورد</button>`;
+        case 'ordered_from_supplier':
+          return `<button class="btn btn-blue" onclick="markShipped('${order.id}')" style="padding:6px 12px;font-size:.8rem;">🚚 شحن</button>`;
+        case 'shipped':
+          return `<button class="btn btn-gold" onclick="markDelivered('${order.id}')" style="padding:6px 12px;font-size:.8rem;">🎉 تم التسليم</button>`;
+        default:
+          return '';
+      }
+    }
+
+    function filterOrders(status) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      renderOrders(status);
+    }
+
+    function approveOrder(id) {
+      if (typeof OrderSystem === 'undefined') return;
+      OrderSystem.updateStatus(id, 'confirmed', 'تم تأكيد الطلب');
+      refreshData();
+    }
+
+    function cancelOrder(id) {
+      if (typeof OrderSystem === 'undefined') return;
+      if (confirm('هل أنت متأكد من إلغاء الطلب؟')) {
+        OrderSystem.updateStatus(id, 'cancelled', 'تم إلغاء الطلب');
+        refreshData();
+      }
+    }
+
+    function orderFromSupplier(id) {
+      if (typeof OrderSystem === 'undefined') return;
+      const order = OrderSystem.getOrder(id);
+      if (!order) return;
+      
+      // فتح واتساب لإرسال الطلب لـ KSA Drop
+      const msg = OrderSystem.formatSupplierWhatsApp(order);
+      window.open(`https://wa.me/${OrderSystem.config.ksadropWhatsapp}?text=${msg}`, '_blank');
+      
+      OrderSystem.updateStatus(id, 'ordered_from_supplier', 'تم الطلب من المورد — بانتظار الشحن');
+      refreshData();
+    }
+
+    function markShipped(id) {
+      if (typeof OrderSystem === 'undefined') return;
+      const tracking = prompt('أدخل رقم التتبع (اختياري):');
+      const order = OrderSystem.getOrder(id);
+      if (!order) return;
+
+      if (tracking) order.trackingNumber = tracking;
+      OrderSystem.updateStatus(id, 'shipped', tracking ? `تم الشحن — رقم التتبع: ${tracking}` : 'تم الشحن');
+
+      // إرسال رسالة واتساب للعميل
+      const msg = OrderSystem.formatShippingMessage(order);
+      window.open(`https://wa.me/${order.customer.phone}?text=${msg}`, '_blank');
+      
+      refreshData();
+    }
+
+    function markDelivered(id) {
+      if (typeof OrderSystem === 'undefined') return;
+      OrderSystem.updateStatus(id, 'delivered', 'تم التسليم بنجاح 🎉');
+      refreshData();
+    }
+
+    // Initial load
+    refreshData();
+
+    // Auto refresh every 30 seconds
+    setInterval(refreshData, 30000);
+  </script>
+</body>
+</html>
