@@ -4,17 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>الأسئلة الشائعة — سوق الزين</title>
+  <meta name="description" content="إجابات على أكثر الأسئلة شيوعاً عن الشحن والدفع والإرجاع والمنتجات في سوق الزين.">
+  <meta property="og:title" content="الأسئلة الشائعة — سوق الزين">
+  <meta property="og:description" content="إجابات على أكثر الأسئلة شيوعاً عن الشحن والدفع والإرجاع والمنتجات في سوق الزين.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://az212z.github.io/souq-alzein/faq.html">
+  <meta property="og:locale" content="ar_SA">
+  <meta property="og:site_name" content="سوق الزين">
+  <link rel="canonical" href="https://az212z.github.io/souq-alzein/faq.html">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-
-  <meta property="og:locale" content="ar_SA">
-  <link rel="canonical" href="https://az212z.github.io/souq-alzein/faq.html">
 </head>
 <body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-item">🚚 شحن مجاني للطلبات فوق 200 ر.س</div>
+      <div class="top-bar-item">💵 الدفع عند الاستلام</div>
+      <div class="top-bar-item">🔄 ضمان استرجاع 30 يوم</div>
+      <div class="top-bar-item">🇸🇦 متجر سعودي معتمد</div>
+    </div>
+  </div>
+
+  <!-- Header -->
   <header class="header" id="header">
     <div class="container header-inner">
-      <a href="index.html" class="logo"><span class="logo-icon">🛍️</span><span class="logo-text">سوق الزين</span></a>
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🛍️</span>
+        <span class="logo-text">سوق الزين</span>
+      </a>
       <nav class="nav" id="nav">
         <a href="index.html" class="nav-link">الرئيسية</a>
         <a href="products.html" class="nav-link">المنتجات</a>
@@ -24,8 +45,13 @@
         <a href="track.html" class="nav-link">📦 تتبع الطلب</a>
       </nav>
       <div class="header-actions">
-        <a href="cart.html" class="cart-btn" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count" id="cartCount">0</span></a>
-        <button class="menu-btn" id="menuToggle" aria-label="القائمة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+        <a href="cart.html" class="cart-btn" id="cartBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="menu-btn" id="menuToggle" aria-label="القائمة">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
       </div>
     </div>
   </header>
@@ -43,59 +69,177 @@
         <button class="faq-cat-btn" data-cat="shipping">الشحن</button>
         <button class="faq-cat-btn" data-cat="returns">الإرجاع</button>
         <button class="faq-cat-btn" data-cat="payment">الدفع</button>
+        <button class="faq-cat-btn" data-cat="products">المنتجات</button>
       </div>
 
       <div class="faq-list">
+        <!-- الطلبات -->
         <div class="faq-item" data-cat="orders">
           <button class="faq-question">كيف أتابع طلبي؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-          <div class="faq-answer"><p>بعد تأكيد طلبك، ستصلك رسالة برقم التتبع. يمكنك استخدام الرابط المرفق لمتابعة شحنتك لحظة بلحظة، أو التواصل مع خدمة العملاء.</p></div>
+          <div class="faq-answer"><p>بعد تأكيد طلبك، ستصلك رسالة برقم التتبع عبر الواتساب والبريد الإلكتروني. يمكنك متابعة شحنتك لحظة بلحظة من صفحة <a href="track.html">تتبع الطلب</a>، أو التواصل معنا مباشرة على واتساب.</p></div>
         </div>
         <div class="faq-item" data-cat="orders">
           <button class="faq-question">هل يمكنني تعديل أو إلغاء طلبي؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-          <div class="faq-answer"><p>يمكنك تعديل أو إلغاء طلبك خلال ساعة من تقديمه. بعد ذلك، يبدأ الطلب مرحلة المعالجة ولن يمكن تعديله. تواصل معنا فوراً إذا احتجت مساعدة.</p></div>
+          <div class="faq-answer"><p>يمكنك تعديل أو إلغاء طلبك خلال ساعة من تقديمه. بعد ذلك، يبدأ الطلب مرحلة المعالجة ولن يمكن تعديله. تواصل معنا فوراً على واتساب إذا احتجت مساعدة.</p></div>
         </div>
+        <div class="faq-item" data-cat="orders">
+          <button class="faq-question">كم يستغرق تأكيد الطلب؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>يتم تأكيد الطلب خلال ساعات قليلة من تقديمه. ستصلك رسالة تأكيد عبر الواتساب والبريد الإلكتروني تتضمن تفاصيل الطلب ورقم التتبع.</p></div>
+        </div>
+
+        <!-- الشحن -->
         <div class="faq-item" data-cat="shipping">
           <button class="faq-question">كم تكلفة الشحن؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-          <div class="faq-answer"><p>الشحن مجاني للطلبات فوق 200 ريال سعودي. للطلبات أقل من ذلك، رسوم الشحن 25 ريال. التوصيل خلال 2-5 أيام عمل.</p></div>
+          <div class="faq-answer"><p>الشحن مجاني للطلبات فوق 200 ريال سعودي. للطلبات أقل من ذلك، رسوم الشحن 25 ريال. التوصيل خلال 2-5 أيام عمل لجميع مناطق المملكة.</p></div>
         </div>
         <div class="faq-item" data-cat="shipping">
           <button class="faq-question">هل نشحن لجميع مناطق المملكة؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-          <div class="faq-answer"><p>نعم! ن shipون لجميع مدن ومناطق المملكة العربية السعودية. المدن الرئيسية خلال 2-3 أيام، والمناطق البعيدة 4-7 أيام.</p></div>
+          <div class="faq-answer"><p>نعم! نشحن لجميع مدن ومناطق المملكة العربية السعودية. المدن الرئيسية (الرياض، جدة، الدمام) خلال 2-3 أيام عمل، والمناطق الأخرى خلال 3-5 أيام عمل، والمناطق البعيدة خلال 5-7 أيام عمل.</p></div>
         </div>
+        <div class="faq-item" data-cat="shipping">
+          <button class="faq-question">هل يمكنني استلام طلبي من فرع؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>حالياً نعمل بنظام التوصيل المباشر لباب المنزل فقط. لا يتوفر استلام من فرع في الوقت الحالي.</p></div>
+        </div>
+        <div class="faq-item" data-cat="shipping">
+          <button class="faq-question">ماذا أفعل إذا تأخرت شحنتي؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>إذا تجاوزت مدة التوصيل المتوقعة، تواصل معنا فوراً عبر واتساب على الرقم +966505989304 وسنتابع الأمر مع شركة الشحن ونحل المشكلة بأسرع وقت.</p></div>
+        </div>
+
+        <!-- الإرجاع -->
         <div class="faq-item" data-cat="returns">
           <button class="faq-question">ما هي سياسة الإرجاع؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-          <div class="faq-answer"><p>يمكنك إرجاع أي منتج خلال 30 يوم من الاستلام إذا كان بحالته الأصلية. المنتجات المخصصة والمعروضة بخصم نهائي لا تقبل الإرجاع.</p></div>
+          <div class="faq-answer"><p>يمكنك إرجاع أي منتج خلال 30 يوم من الاستلام إذا كان بحالته الأصلية وغير مستخدم وفي تغليفه الأصلي. المنتجات المخصصة والمعروضة بخصم نهائي لا تقبل الإرجاع.</p></div>
         </div>
         <div class="faq-item" data-cat="returns">
           <button class="faq-question">كم يستغرق استرداد المبلغ؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-          <div class="faq-answer"><p>بعد استلام المنتج المرجع وفحصه، يتم استرداد المبلغ خلال 5-10 أيام عمل حسب طريقة الدفع الأصلية.</p></div>
+          <div class="faq-answer"><p>بعد استلام المنتج المرجع وفحصه، يتم استرداد المبلغ خلال 5-10 أيام عمل حسب طريقة الدفع الأصلية. إذا دفعت عند الاستلام، يمكننا التحويل لحسابك البنكي.</p></div>
         </div>
+        <div class="faq-item" data-cat="returns">
+          <button class="faq-question">من يدفع رسوم شحن الإرجاع؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>إذا كان الإرجاع بسبب عيب في المنتج أو خطأ من طرفنا، نحن نتحمل رسوم الشحن. إذا كان الإرجاع لعدم رضا عن المنتج، يتحمل المشتري رسوم الشحن.</p></div>
+        </div>
+
+        <!-- الدفع -->
         <div class="faq-item" data-cat="payment">
           <button class="faq-question">ما هي طرق الدفع المتاحة؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-          <div class="faq-answer"><p>نقبل: مدى، Visa، Mastercard، Apple Pay، STC Pay، Tabby (تقسيط بدون فوائد)، والدفع عند الاستلام. جميع المعاملات عبر بوابة Moyasar المعتمدة في السعودية.</p></div>
+          <div class="faq-answer"><p>نقبل: الدفع عند الاستلام، مدى، Visa، Mastercard، Apple Pay، STC Pay، وتقسيط Tabby (بدون فوائد). جميع المعاملات الإلكترونية عبر بوابة Moyasar المعتمدة في السعودية.</p></div>
+        </div>
+        <div class="faq-item" data-cat="payment">
+          <button class="faq-question">هل الدفع عند الاستلام متاح؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>نعم! الدفع عند الاستلام متاح لجميع الطلبات داخل المملكة. ادفع نقداً أو ببطاقة مدى لمندوب التوصيل عند استلام شحنتك.</p></div>
         </div>
         <div class="faq-item" data-cat="payment">
           <button class="faq-question">هل الدفع آمن؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
           <div class="faq-answer"><p>بالتأكيد! نستخدم تشفير SSL 256-bit ونلتزم بأعلى معايير أمان الدفع الإلكتروني PCI DSS. بياناتك المالية لا نخزنها أبداً.</p></div>
         </div>
-      </div>
-
         <div class="faq-item" data-cat="payment">
           <button class="faq-question">ما هو Tabby وكيف أستخدمه؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
-          <div class="faq-answer"><p>Tabby يتيحك تدفع على 4 دفعات بدون فوائد! اختار Tabby عند الدفع وادفع ربع المبلغ فقط والباقي على 3 دفعات شهرية. بدون رسوم إضافية.</p></div>
+          <div class="faq-answer"><p>Tabby يتيحك تدفع على 4 دفعات بدون فوائد! اختار Tabby عند الدفع وادفع ربع المبلغ فقط والباقي على 3 دفعات شهرية. بدون رسوم إضافية طالما سددت في الوقت المحدد.</p></div>
         </div>
+        <div class="faq-item" data-cat="payment">
+          <button class="faq-question">هل الأسعار شاملة ضريبة القيمة المضافة؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>نعم، جميع الأسعار المعروضة على الموقع شاملة ضريبة القيمة المضافة (15%). ما تراه هو ما تدفعه — بدون مفاجآت.</p></div>
+        </div>
+
+        <!-- المنتجات -->
+        <div class="faq-item" data-cat="products">
+          <button class="faq-question">هل المنتجات أصلية؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>نعم، جميع منتجاتنا أصلية ومضمونة 100%. كل منتج يمر بفحص جودة قبل الشحن. نحن لا نبيع منتجات مقلدة أو تقليد أبداً.</p></div>
+        </div>
+        <div class="faq-item" data-cat="products">
+          <button class="faq-question">هل الصور المعروضة تطابق المنتج الفعلي؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>نسعى لتقديم صور دقيقة لكل منتج. قد توجد اختلافات بسيطة بسبب الإضاءة أو الشاشة، لكننا نضمن أن المنتج يطابق الوصف المكتوب. إذا لم يرضك، يمكنك إرجاعه خلال 30 يوم.</p></div>
+        </div>
+        <div class="faq-item" data-cat="products">
+          <button class="faq-question">هل تتوفر ضمان على المنتجات؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>بعض المنتجات تأتي بضمان من الشركة المصنعة (مذكور في صفحة المنتج). بالإضافة لذلك، نقدم ضمان استرجاع 30 يوم على جميع المنتجات.</p></div>
+        </div>
+        <div class="faq-item" data-cat="products">
+          <button class="faq-question">كيف أختار المقاس المناسب؟<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>تجد جدول المقاسات في صفحة كل منتج ينطبق عليه. إذا كنت متردد، تواصل معنا عبر واتساب وسنساعدك باختيار المقاس المناسب.</p></div>
+        </div>
+      </div>
+
       <div class="faq-cta">
         <h3>لم تجد إجابتك؟</h3>
         <p>تواصل معنا مباشرة وسنساعدك فوراً</p>
-        <a href="contact.html" class="btn btn-primary">تواصل معنا</a>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+          <a href="https://wa.me/966505989304?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="btn btn-primary" target="_blank" rel="noopener">💬 تواصل واتساب</a>
+          <a href="contact.html" class="btn btn-outline">📧 أرسل رسالة</a>
+        </div>
       </div>
     </div>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-    <div class="container"><div class="footer-bottom"><p>© 2026 سوق الزين. جميع الحقوق محفوظة.</p></div></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-icon">🛍️</span>
+            <span class="logo-text">سوق الزين</span>
+          </a>
+          <p>متجر إلكتروني سعودي معتمد — منتجات أصلية بأفضل الأسعار، شحن سريع، ودفع عند الاستلام</p>
+          <div class="footer-cert">
+            <span class="cert-badge">🇸🇦 سجل تجاري</span>
+            <span class="cert-badge">🔒 SSL آمن</span>
+            <span class="cert-badge">✓ ضمان الجودة</span>
+          </div>
+          <div class="social-links">
+            <a href="#" aria-label="تويتر">𝕏</a>
+            <a href="#" aria-label="انستغرام">📷</a>
+            <a href="#" aria-label="سناب شات">👻</a>
+            <a href="https://wa.me/966505989304" aria-label="واتساب">💬</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>روابط سريعة</h4>
+          <a href="products.html">المنتجات</a>
+          <a href="about.html">من نحن</a>
+          <a href="contact.html">تواصل معنا</a>
+          <a href="track.html">تتبع طلبك</a>
+          <a href="faq.html">الأسئلة الشائعة</a>
+        </div>
+        <div class="footer-links">
+          <h4>السياسات</h4>
+          <a href="policy.html">سياسة الإرجاع</a>
+          <a href="policy.html">سياسة الخصوصية</a>
+          <a href="policy.html">الشروط والأحكام</a>
+          <a href="policy.html">سياسة الشحن</a>
+        </div>
+        <div class="footer-links">
+          <h4>تواصل معنا</h4>
+          <p>📍 الرياض، المملكة العربية السعودية</p>
+          <p>📧 ali212@icloud.com</p>
+          <p>📱 +966 50 598 9304</p>
+          <p>⏰ الأحد - الخميس: 9ص - 10م</p>
+          <a href="https://wa.me/966505989304" class="footer-whatsapp">💬 تواصل واتساب</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">
+          <p>© 2026 سوق الزين. جميع الحقوق محفوظة.</p>
+          <p class="footer-cr">سجل تجاري رقم 1010XXXXXX — الرياض، المملكة العربية السعودية</p>
+        </div>
+        <div class="payment-methods">
+          <span class="pay-badge">💵 الدفع عند الاستلام</span>
+          <span class="pay-badge">🏦 مدى</span>
+          <span class="pay-badge">💳 Visa</span>
+          <span class="pay-badge">📱 Apple Pay</span>
+        </div>
+      </div>
+    </div>
   </footer>
-  <script src="js/data.js"></script><script src="js/cart.js"></script><script src="js/app.js"></script>
-<a href="https://wa.me/966505989304?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85" class="whatsapp-float" target="_blank" rel="noopener" aria-label="تواصل واتساب"><svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 3.5 1.136 6.744 3.052 9.378L1.056 31.2l6.098-1.952A15.9 15.9 0 0016.004 32C24.826 32 32 24.824 32 16.004S24.826 0 16.004 0zm9.312 22.61c-.39 1.1-2.296 2.1-3.178 2.234-.816.122-1.848.174-2.98-.19a27.1 27.1 0 01-2.704-1c-4.756-2.058-7.86-6.9-8.096-7.224-.236-.312-1.938-2.582-1.938-4.922s1.226-3.488 1.66-3.964c.434-.476.948-.596 1.264-.596.316 0 .632.002.908.016.292.014.682-.11 1.068.814.39.936 1.33 3.254 1.448 3.49.118.236.196.512.04.826-.158.316-.236.512-.472.79-.236.276-.498.618-.71.828-.236.236-.484.492-.208.964.276.472 1.226 2.024 2.63 3.28 1.808 1.612 3.334 2.112 3.808 2.35.472.236.748.196 1.026-.118.276-.316 1.184-1.38 1.5-1.856.316-.472.632-.392 1.068-.236.434.158 2.744 1.294 3.218 1.53.472.236.79.354.908.55.118.196.118 1.136-.272 2.234z"/></svg></a>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/order.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/966505989304?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="whatsapp-float" target="_blank" rel="noopener" aria-label="تواصل واتساب">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 3.5 1.136 6.744 3.052 9.378L1.056 31.2l6.098-1.952A15.9 15.9 0 0016.004 32C24.826 32 32 24.824 32 16.004S24.826 0 16.004 0zm9.312 22.61c-.39 1.1-2.296 2.1-3.178 2.234-.816.122-1.848.174-2.98-.19a27.1 27.1 0 01-2.704-1c-4.756-2.058-7.86-6.9-8.096-7.224-.236-.312-1.938-2.582-1.938-4.922s1.226-3.488 1.66-3.964c.434-.476.948-.596 1.264-.596.316 0 .632.002.908.016.292.014.682-.11 1.068.814.39.936 1.33 3.254 1.448 3.49.118.236.196.512.04.826-.158.316-.236.512-.472.79-.236.276-.498.618-.71.828-.236.236-.484.492-.208.964.276.472 1.226 2.024 2.63 3.28 1.808 1.612 3.334 2.112 3.808 2.35.472.236.748.196 1.026-.118.276-.316 1.184-1.38 1.5-1.856.316-.472.632-.392 1.068-.236.434.158 2.744 1.294 3.218 1.53.472.236.79.354.908.55.118.196.118 1.136-.272 2.234z"/></svg>
+  </a>
 </body>
 </html>
