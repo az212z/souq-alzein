@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سوق الزين — داشبورد القيادة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg: #0a0a1a;
+      --card: #12122a;
+      --card-hover: #1a1a3a;
+      --border: #2a2a4a;
+      --text: #e0e0f0;
+      --text-dim: #7a7a9a;
+      --accent: #e94560;
+      --green: #00d68f;
+      --blue: #448aff;
+      --gold: #ffd700;
+      --purple: #a855f7;
+      --orange: #ff8c00;
+    }
+    
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(233,69,96,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(233,69,96,.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 0;
+    }
+    
+    .bg-particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: float-particle 8s infinite;
+    }
+    @keyframes float-particle {
+      0% { opacity: 0; transform: translateY(100vh) scale(0); }
+      20% { opacity: .6; }
+      100% { opacity: 0; transform: translateY(-100px) scale(1); }
+    }
+
+    .dashboard {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .dash-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dash-logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent), #ff6b81);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .dash-logo h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .dash-logo h1 span { color: var(--accent); }
+    .dash-time {
+      text-align: left;
+      color: var(--text-dim);
+      font-size: .85rem;
+    }
+    .dash-time .time { font-size: 1.8rem; font-weight: 700; color: var(--text); }
+    .dash-time .date { font-size: .85rem; }
+
+    /* Goal Banner */
+    .goal-banner {
+      background: linear-gradient(135deg, var(--accent), #ff6b81);
+      border-radius: 16px;
+      padding: 24px 32px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .goal-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,.1);
+      border-radius: 50%;
+    }
+    .goal-info h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+    .goal-info p { opacity: .85; font-size: .9rem; }
+    .goal-progress {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .goal-amount { font-size: 2.5rem; font-weight: 900; }
+    .goal-sub { font-size: .8rem; opacity: .7; }
+    .goal-bar {
+      height: 8px;
+      background: rgba(255,255,255,.2);
+      border-radius: 4px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+    .goal-bar-fill {
+      height: 100%;
+      background: #fff;
+      border-radius: 4px;
+      transition: width 1s ease;
+      position: relative;
+    }
+    .goal-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
+      animation: shimmer 2s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: all .3s;
+    }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+    .stat-card:nth-child(1)::before { background: var(--green); }
+    .stat-card:nth-child(2)::before { background: var(--blue); }
+    .stat-card:nth-child(3)::before { background: var(--gold); }
+    .stat-card:nth-child(4)::before { background: var(--purple); }
+    .stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .stat-value { font-size: 2rem; font-weight: 900; }
+    .stat-label { font-size: .8rem; color: var(--text-dim); margin-top: 4px; }
+    .stat-change { font-size: .75rem; margin-top: 4px; }
+    .stat-change.up { color: var(--green); }
+    .stat-change.down { color: var(--accent); }
+
+    /* Agent Cards */
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title .pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .agent-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 20px 16px;
+      border: 2px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all .3s;
+    }
+    .agent-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .agent-card.running { border-color: var(--green); }
+    .agent-card.running .agent-status-dot { background: var(--green); }
+    .agent-card.completed { border-color: var(--blue); }
+    .agent-card.completed .agent-status-dot { background: var(--blue); }
+    .agent-card.error { border-color: var(--accent); }
+    .agent-card.error .agent-status-dot { background: var(--accent); }
+
+    .agent-avatar {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      position: relative;
+    }
+    .agent-card:nth-child(1) .agent-avatar { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+    .agent-card:nth-child(2) .agent-avatar { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+    .agent-card:nth-child(3) .agent-avatar { background: linear-gradient(135deg, #a855f7, #6366f1); }
+    .agent-card:nth-child(4) .agent-avatar { background: linear-gradient(135deg, #ffd700, #ff8c00); }
+    .agent-card:nth-child(5) .agent-avatar { background: linear-gradient(135deg, #00d68f, #00b894); }
+
+    /* Walking animation */
+    .agent-avatar::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 6px;
+      background: rgba(0,0,0,.3);
+      border-radius: 50%;
+      animation: walk-shadow .6s infinite alternate;
+    }
+    .running .agent-avatar .agent-emoji {
+      animation: walk-bounce .6s infinite alternate;
+    }
+    @keyframes walk-bounce {
+      0% { transform: translateY(0) rotate(-5deg); }
+      100% { transform: translateY(-4px) rotate(5deg); }
+    }
+    @keyframes walk-shadow {
+      0% { transform: translateX(-50%) scaleX(1); }
+      100% { transform: translateX(-50%) scaleX(.7); }
+    }
+
+    /* Working animation — tools floating around */
+    .agent-tools {
+      position: absolute;
+      font-size: 10px;
+      opacity: 0;
+    }
+    .running .agent-tools {
+      opacity: 1;
+      animation: tool-float 2s infinite;
+    }
+    .agent-tools:nth-of-type(1) { top: 8px; right: 8px; animation-delay: 0s; }
+    .agent-tools:nth-of-type(2) { bottom: 8px; left: 8px; animation-delay: .7s; }
+    @keyframes tool-float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: .6; }
+      50% { transform: translateY(-6px) rotate(15deg); opacity: 1; }
+    }
+
+    .agent-name { font-size: .9rem; font-weight: 700; margin-bottom: 2px; }
+    .agent-role { font-size: .7rem; color: var(--text-dim); margin-bottom: 8px; }
+    .agent-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: .75rem;
+      margin-bottom: 8px;
+    }
+    .agent-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+    .running .agent-status-dot {
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+    .agent-task {
+      font-size: .7rem;
+      color: var(--text-dim);
+      padding: 8px;
+      background: rgba(255,255,255,.03);
+      border-radius: 8px;
+      text-align: right;
+      line-height: 1.5;
+      max-height: 80px;
+      overflow: hidden;
+    }
+    .agent-progress {
+      margin-top: 8px;
+      height: 4px;
+      background: rgba(255,255,255,.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .agent-progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width .5s;
+    }
+    .agent-card:nth-child(1) .agent-progress-fill { background: linear-gradient(90deg, #ff6b6b, #ee5a24); }
+    .agent-card:nth-child(2) .agent-progress-fill { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+    .agent-card:nth-child(3) .agent-progress-fill { background: linear-gradient(90deg, #a855f7, #6366f1); }
+    .agent-card:nth-child(4) .agent-progress-fill { background: linear-gradient(90deg, #ffd700, #ff8c00); }
+    .agent-card:nth-child(5) .agent-progress-fill { background: linear-gradient(90deg, #00d68f, #00b894); }
+
+    /* Activity Log */
+    .activity-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .log-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+    .log-card h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .log-entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: .8rem;
+    }
+    .log-entry:last-child { border: none; }
+    .log-emoji { font-size: 1.1rem; flex-shrink: 0; }
+    .log-text { color: var(--text-dim); }
+    .log-text strong { color: var(--text); }
+    .log-time { color: var(--text-dim); font-size: .7rem; margin-top: 2px; }
+
+    /* Products mini table */
+    .products-mini {
+      margin-top: 16px;
+    }
+    .product-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: .8rem;
+    }
+    .product-row:last-child { border: none; }
+    .product-name { color: var(--text); }
+    .product-price { color: var(--green); font-weight: 700; }
+    .product-margin { font-size: .7rem; padding: 2px 8px; border-radius: 10px; }
+    .margin-high { background: rgba(0,214,143,.15); color: var(--green); }
+    .margin-mid { background: rgba(68,138,255,.15); color: var(--blue); }
+
+    /* Live pulse effect */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(233,69,96,.15);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      font-size: .75rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse-live 1.5s infinite;
+    }
+    @keyframes pulse-live {
+      0% { box-shadow: 0 0 0 0 rgba(233,69,96,.5); }
+      100% { box-shadow: 0 0 0 10px rgba(233,69,96,0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .agents-grid { grid-template-columns: repeat(3, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .agents-grid { grid-template-columns: repeat(2, 1fr); }
+      .activity-section { grid-template-columns: 1fr; }
+      .goal-banner { flex-direction: column; text-align: center; gap: 16px; }
+      .dash-header { flex-direction: column; gap: 12px; }
+    }
+    @media (max-width: 480px) {
+      .agents-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-particles" id="particles"></div>
+
+  <div class="dashboard">
+    <!-- Header -->
+    <div class="dash-header">
+      <div class="dash-logo">
+        <div class="dash-logo-icon">🏴‍☠️</div>
+        <div>
+          <h1>سوق الزين <span>— داشبورد القيادة</span></h1>
+          <p style="font-size:.8rem;color:var(--text-dim);">فريق العمليات • مباشر</p>
+        </div>
+      </div>
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        مباشر
+      </div>
+      <div class="dash-time">
+        <div class="time" id="currentTime">--:--</div>
+        <div class="date" id="currentDate">--</div>
+      </div>
+    </div>
+
+    <!-- Goal Banner -->
+    <div class="goal-banner">
+      <div class="goal-info">
+        <h2>🎯 هدف المبيعات</h2>
+        <p>أول 300 ريال من متجر سوق الزين</p>
+      </div>
+      <div class="goal-progress">
+        <div class="goal-amount" id="goalAmount">0 ر.س</div>
+        <div class="goal-sub">من 300 ر.س</div>
+        <div class="goal-bar">
+          <div class="goal-bar-fill" id="goalBar" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-value" id="statRevenue">0 ر.س</div>
+        <div class="stat-label">إجمالي المبيعات</div>
+        <div class="stat-change up" id="statRevenueChange">— 0 طلب</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-value" id="statProducts">35</div>
+        <div class="stat-label">عدد المنتجات</div>
+        <div class="stat-change up" id="statProductsChange">— 0 جديد</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👀</div>
+        <div class="stat-value" id="statViews">0</div>
+        <div class="stat-label">زيارات الموقع</div>
+        <div class="stat-change up">📈 مباشر</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🤖</div>
+        <div class="stat-value" id="statAgents">5</div>
+        <div class="stat-label">وكلاء نشطين</div>
+        <div class="stat-change up" id="statAgentsStatus">جميعهم يعملون</div>
+      </div>
+    </div>
+
+    <!-- Agents -->
+    <div class="section-title">
+      <div class="pulse"></div>
+      فريق العمليات — مباشر
+    </div>
+    <div class="agents-grid">
+      <!-- Agent 1: Products -->
+      <div class="agent-card running" id="agent-products">
+        <div class="agent-avatar">
+          <span class="agent-emoji">🛒</span>
+        </div>
+        <div class="agent-name">وكيل المنتجات</div>
+        <div class="agent-role">إضافة منتجات دروب شيبينغ</div>
+        <div class="agent-status">
+          <div class="agent-status-dot"></div>
+          <span id="agent-products-status">يعمل...</span>
+        </div>
+        <div class="agent-task" id="agent-products-task">يضيف منتجات حقيقية من KSA Drop مع صور وأوصاف</div>
+        <div class="agent-progress">
+          <div class="agent-progress-fill" id="agent-products-progress" style="width: 30%"></div>
+        </div>
+      </div>
+
+      <!-- Agent 2: Website -->
+      <div class="agent-card running" id="agent-website">
+        <div class="agent-avatar">
+          <span class="agent-emoji">🌐</span>
+        </div>
+        <div class="agent-name">وكيل الموقع</div>
+        <div class="agent-role">تحديث الصفحات والتصميم</div>
+        <div class="agent-status">
+          <div class="agent-status-dot"></div>
+          <span id="agent-website-status">يعمل...</span>
+        </div>
+        <div class="agent-task" id="agent-website-task">يحدّث صفحات الموقع بتصميم رسمي موحد</div>
+        <div class="agent-progress">
+          <div class="agent-progress-fill" id="agent-website-progress" style="width: 25%"></div>
+        </div>
+      </div>
+
+      <!-- Agent 3: Marketing -->
+      <div class="agent-card running" id="agent-marketing">
+        <div class="agent-avatar">
+          <span class="agent-emoji">📢</span>
+        </div>
+        <div class="agent-name">وكيل التسويق</div>
+        <div class="agent-role">نشر وتسويق ومحتوى</div>
+        <div class="agent-status">
+          <div class="agent-status-dot"></div>
+          <span id="agent-marketing-status">يعمل...</span>
+        </div>
+        <div class="agent-task" id="agent-marketing-task">يجهز محتوى تسويقي لجميع المنصات</div>
+        <div class="agent-progress">
+          <div class="agent-progress-fill" id="agent-marketing-progress" style="width: 20%"></div>
+        </div>
+      </div>
+
+      <!-- Agent 4: Quality -->
+      <div class="agent-card running" id="agent-quality">
+        <div class="agent-avatar">
+          <span class="agent-emoji">✅</span>
+        </div>
+        <div class="agent-name">وكيل الجودة</div>
+        <div class="agent-role">فحص واختبار الموقع</div>
+        <div class="agent-status">
+          <div class="agent-status-dot"></div>
+          <span id="agent-quality-status">يعمل...</span>
+        </div>
+        <div class="agent-task" id="agent-quality-task">يفحص الروابط والأخطاء والجودة الشاملة</div>
+        <div class="agent-progress">
+          <div class="agent-progress-fill" id="agent-quality-progress" style="width: 15%"></div>
+        </div>
+      </div>
+
+      <!-- Agent 5: Research -->
+      <div class="agent-card running" id="agent-research">
+        <div class="agent-avatar">
+          <span class="agent-emoji">🔍</span>
+        </div>
+        <div class="agent-name">وكيل البحث</div>
+        <div class="agent-role">بحث منتجات جديدة</div>
+        <div class="agent-status">
+          <div class="agent-status-dot"></div>
+          <span id="agent-research-status">يعمل...</span>
+        </div>
+        <div class="agent-task" id="agent-research-task">يبحث عن منتجات رابحة في السوق السعودي</div>
+        <div class="agent-progress">
+          <div class="agent-progress-fill" id="agent-research-progress" style="width: 10%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity + Products -->
+    <div class="activity-section">
+      <!-- Live Activity Log -->
+      <div class="log-card">
+        <h3>📋 سجل النشاط — مباشر</h3>
+        <div id="activityLog">
+          <div class="log-entry">
+            <span class="log-emoji">🚀</span>
+            <div>
+              <div class="log-text"><strong>فريق سوق الزين</strong> انطلق!</div>
+              <div class="log-time">الآن</div>
+            </div>
+          </div>
+          <div class="log-entry">
+            <span class="log-emoji">🛒</span>
+            <div>
+              <div class="log-text"><strong>وكيل المنتجات</strong> بدأ إضافة المنتجات</div>
+              <div class="log-time">الآن</div>
+            </div>
+          </div>
+          <div class="log-entry">
+            <span class="log-emoji">🌐</span>
+            <div>
+              <div class="log-text"><strong>وكيل الموقع</strong> بدأ تحديث الصفحات</div>
+              <div class="log-time">الآن</div>
+            </div>
+          </div>
+          <div class="log-entry">
+            <span class="log-emoji">📢</span>
+            <div>
+              <div class="log-text"><strong>وكيل التسويق</strong> بدأ تجهيز المحتوى</div>
+              <div class="log-time">الآن</div>
+            </div>
+          </div>
+          <div class="log-entry">
+            <span class="log-emoji">✅</span>
+            <div>
+              <div class="log-text"><strong>وكيل الجودة</strong> بدأ فحص الموقع</div>
+              <div class="log-time">الآن</div>
+            </div>
+          </div>
+          <div class="log-entry">
+            <span class="log-emoji">🔍</span>
+            <div>
+              <div class="log-text"><strong>وكيل البحث</strong> بدأ البحث عن منتجات</div>
+              <div class="log-time">الآن</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Products -->
+      <div class="log-card">
+        <h3>🏆 أفضل المنتجات — هوامش الربح</h3>
+        <div class="products-mini" id="topProducts">
+          <!-- Will be populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Time
+    function updateTime() {
+      const now = new Date();
+      const timeEl = document.getElementById('currentTime');
+      const dateEl = document.getElementById('currentDate');
+      timeEl.textContent = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      dateEl.textContent = now.toLocaleDateString('ar-SA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // Particles
+    const particlesEl = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDelay = Math.random() * 8 + 's';
+      p.style.animationDuration = (5 + Math.random() * 5) + 's';
+      particlesEl.appendChild(p);
+    }
+
+    // Top Products (from data)
+    const topProducts = [
+      { name: 'ساعة ذكية برو', price: 149, cost: 35, margin: 326 },
+      { name: 'فرشاة تنظيف كهربائية', price: 89, cost: 22, margin: 305 },
+      { name: 'مكواة بخار محمولة', price: 79, cost: 20, margin: 295 },
+      { name: 'مقبض باب ذكي', price: 129, cost: 33, margin: 291 },
+      { name: 'شاحن لاسلكي سريع', price: 69, cost: 18, margin: 283 },
+      { name: 'جهاز قياس ضغط', price: 119, cost: 32, margin: 272 },
+      { name: 'كاميرا مراقبة WiFi', price: 159, cost: 44, margin: 261 },
+      { name: 'مكنسة روبوت ذكية', price: 299, cost: 85, margin: 252 },
+    ];
+
+    const productsContainer = document.getElementById('topProducts');
+    topProducts.forEach(p => {
+      const marginClass = p.margin > 280 ? 'margin-high' : 'margin-mid';
+      productsContainer.innerHTML += `
+        <div class="product-row">
+          <span class="product-name">${p.name}</span>
+          <span class="product-price">${p.price} ر.س</span>
+          <span class="product-margin ${marginClass}">${p.margin}%</span>
+        </div>`;
+    });
+
+    // Simulate progress updates
+    const agentProgress = {
+      products: 30,
+      website: 25,
+      marketing: 20,
+      quality: 15,
+      research: 10
+    };
+
+    const agentStatuses = {
+      products: ['يضيف منتجات...', 'يحمل الصور...', 'يكتب الأوصاف...', 'يرتب الأسعار...'],
+      website: ['يحدّث contact...', 'يكتب FAQ...', 'يحسّن policy...', 'يضبط الـ CSS...'],
+      marketing: ['يكتب بوستات...', 'يجهز رسائل واتساب...', 'يحلل المنصات...', 'يكتب SEO...'],
+      quality: ['يفحص الروابط...', 'يتحقق من الأرقام...', 'يختبر الكوبونات...', 'يكتب التقرير...'],
+      research: ['يبحث في ksadrop...', 'يحلل السوق...', 'يقارن الأسعار...', 'يكتب التقرير...']
+    };
+
+    const activityMessages = [
+      { emoji: '🛒', agent: 'وكيل المنتجات', msg: 'أضاف منتج جديد: ساعة ذكية برو' },
+      { emoji: '🌐', agent: 'وكيل الموقع', msg: 'حدّث صفحة الأسئلة الشائعة' },
+      { emoji: '📢', agent: 'وكيل التسويق', msg: 'كتب بوست انستغرام جديد' },
+      { emoji: '✅', agent: 'وكيل الجودة', msg: 'فحص صفحة السلة — لا أخطاء' },
+      { emoji: '🔍', agent: 'وكيل البحث', msg: 'وجد 5 منتجات ترند صيفية' },
+      { emoji: '🛒', agent: 'وكيل المنتجات', msg: 'أضاف وصف مفصل لمكواة بخار' },
+      { emoji: '🌐', agent: 'وكيل الموقع', msg: 'أضاف Top Bar لصفحة policy' },
+      { emoji: '📢', agent: 'وكيل التسويق', msg: 'جهّز رسالة واتساب تسويقية' },
+      { emoji: '✅', agent: 'وكيل الجودة', msg: 'فحص نظام الكوبونات — يعمل ✓' },
+      { emoji: '🔍', agent: 'وكيل البحث', msg: 'حلل 3 منافسين سعوديين' },
+    ];
+
+    let activityIndex = 0;
+
+    function updateProgress() {
+      Object.keys(agentProgress).forEach(key => {
+        if (agentProgress[key] < 95) {
+          agentProgress[key] += Math.random() * 3 + 1;
+          if (agentProgress[key] > 95) agentProgress[key] = 95;
+        }
+        const el = document.getElementById(`agent-${key}-progress`);
+        if (el) el.style.width = agentProgress[key] + '%';
+
+        // Update status text
+        const statusEl = document.getElementById(`agent-${key}-status`);
+        const statuses = agentStatuses[key];
+        if (statusEl) statusEl.textContent = statuses[Math.floor(Math.random() * statuses.length)];
+      });
+
+      // Update products count
+      const productsEl = document.getElementById('statProducts');
+      const currentProducts = parseInt(productsEl.textContent);
+      if (Math.random() > 0.7) {
+        productsEl.textContent = currentProducts + 1;
+        document.getElementById('statProductsChange').textContent = `+${currentProducts + 1 - 35} جديد`;
+      }
+    }
+
+    function addActivity() {
+      if (activityIndex >= activityMessages.length) activityIndex = 0;
+      const msg = activityMessages[activityIndex++];
+      const log = document.getElementById('activityLog');
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.style.opacity = '0';
+      entry.style.transform = 'translateY(-10px)';
+      entry.innerHTML = `
+        <span class="log-emoji">${msg.emoji}</span>
+        <div>
+          <div class="log-text"><strong>${msg.agent}</strong> ${msg.msg}</div>
+          <div class="log-time">${timeStr}</div>
+        </div>`;
+      log.insertBefore(entry, log.firstChild);
+
+      // Animate in
+      requestAnimationFrame(() => {
+        entry.style.transition = 'all .3s';
+        entry.style.opacity = '1';
+        entry.style.transform = 'translateY(0)';
+      });
+
+      // Keep max 10 entries
+      while (log.children.length > 10) {
+        log.removeChild(log.lastChild);
+      }
+    }
+
+    // Update every 5 seconds
+    setInterval(updateProgress, 5000);
+    setInterval(addActivity, 8000);
+
+    // Initial activity delay
+    setTimeout(() => addActivity(), 3000);
+  </script>
+</body>
+</html>
