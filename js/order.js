@@ -3,8 +3,8 @@
 
 const StoreConfig = {
   name: 'سوق الزين',
-  whatsapp: '966512345678', // ← يتم تحديثه برقم علي
-  email: 'info@souq-alzein.com', // ← يتم تحديثه بإيميل علي
+  whatsapp: '966505989304',
+  email: 'ali212@icloud.com',
   currency: 'SAR',
   shippingFreeThreshold: 200,
   shippingCost: 25,
