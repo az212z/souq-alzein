@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اطلب عبر واتساب — سوق الزين 🛍️</title>
+  <meta name="description" content="اطلب منتجات سوق الزين عبر واتساب — سهل وسريع. الدفع عند الاستلام، شحن لجميع مناطق السعودية.">
+  <meta property="og:title" content="اطلب عبر واتساب — سوق الزين 🛍️">
+  <meta property="og:description" content="اطلب بسهولة عبر واتساب — منتجات أصلية، شحن سريع، دفع عند الاستلام">
+  <meta property="og:url" content="https://az212z.github.io/souq-alzein/whatsapp-order.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Tajawal', sans-serif; background: #0a0a1a; color: #e0e0f0; direction: rtl; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    
+    /* Header */
+    .header { text-align: center; padding: 40px 0 24px; }
+    .header-icon { font-size: 3rem; margin-bottom: 12px; }
+    .header h1 { font-size: 1.6rem; font-weight: 900; margin-bottom: 8px; }
+    .header p { color: #7a7a9a; font-size: .95rem; line-height: 1.7; }
+
+    /* Steps */
+    .steps { display: flex; gap: 12px; margin: 32px 0; }
+    .step { flex: 1; text-align: center; padding: 16px 8px; background: #151530; border-radius: 16px; border: 1px solid #2a2a4a; }
+    .step-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .step-num { font-size: .7rem; color: #e94560; font-weight: 800; margin-bottom: 4px; }
+    .step-text { font-size: .8rem; color: #7a7a9a; }
+
+    /* Categories */
+    .categories { margin: 24px 0; }
+    .cat-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 16px; }
+    .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cat-btn { display: flex; align-items: center; gap: 10px; padding: 14px; background: #151530; border: 1px solid #2a2a4a; border-radius: 14px; cursor: pointer; transition: all .2s; text-decoration: none; color: #e0e0f0; }
+    .cat-btn:hover { border-color: #25D366; background: rgba(37,211,102,.08); }
+    .cat-icon { font-size: 1.5rem; }
+    .cat-info { flex: 1; }
+    .cat-name { font-weight: 700; font-size: .9rem; }
+    .cat-count { font-size: .7rem; color: #7a7a9a; }
+
+    /* Product List */
+    .products-section { margin: 24px 0; }
+    .product-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: #151530; border: 1px solid #2a2a4a; border-radius: 14px; margin-bottom: 8px; }
+    .product-img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
+    .product-info { flex: 1; }
+    .product-name { font-weight: 700; font-size: .85rem; margin-bottom: 2px; }
+    .product-price { color: #00d68f; font-weight: 800; font-size: .95rem; }
+    .product-old { color: #7a7a9a; font-size: .75rem; text-decoration: line-through; margin-right: 6px; }
+    .order-btn { background: #25D366; color: #fff; border: none; padding: 8px 14px; border-radius: 10px; font-family: 'Tajawal'; font-weight: 700; font-size: .8rem; cursor: pointer; white-space: nowrap; transition: all .2s; }
+    .order-btn:hover { background: #128C7E; }
+
+    /* Coupon */
+    .coupon-section { background: linear-gradient(135deg, #151530, #1a1a3e); border: 2px dashed #ffd700; border-radius: 16px; padding: 24px; text-align: center; margin: 32px 0; }
+    .coupon-label { font-size: .85rem; color: #7a7a9a; margin-bottom: 8px; }
+    .coupon-value { font-size: 2.2rem; font-weight: 900; color: #ffd700; letter-spacing: 4px; margin-bottom: 8px; }
+    .coupon-desc { font-size: .8rem; color: #7a7a9a; }
+
+    /* CTA */
+    .cta-section { text-align: center; margin: 32px 0; }
+    .cta-wa { display: flex; align-items: center; justify-content: center; gap: 10px; background: #25D366; color: #fff; padding: 18px 32px; border-radius: 16px; text-decoration: none; font-weight: 800; font-size: 1.1rem; box-shadow: 0 8px 32px rgba(37,211,102,.3); transition: all .3s; }
+    .cta-wa:hover { background: #128C7E; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(37,211,102,.4); }
+    .cta-sub { font-size: .8rem; color: #7a7a9a; margin-top: 8px; }
+
+    /* Trust */
+    .trust-row { display: flex; justify-content: center; gap: 20px; margin: 24px 0; flex-wrap: wrap; }
+    .trust-item { text-align: center; font-size: .8rem; color: #7a7a9a; }
+    .trust-item span { display: block; font-size: 1.3rem; margin-bottom: 4px; }
+
+    /* Footer */
+    .footer { text-align: center; padding: 32px 0; border-top: 1px solid #2a2a4a; margin-top: 40px; }
+    .footer p { color: #7a7a9a; font-size: .8rem; }
+    .footer a { color: #e94560; text-decoration: none; }
+
+    @media (max-width: 480px) {
+      .steps { flex-direction: column; }
+      .cat-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon">💬</div>
+      <h1>اطلب عبر واتساب</h1>
+      <p>اختر المنتج واطلبه مباشرة عبر واتساب — سهل وسريع!</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">📱</div>
+        <div class="step-num">الخطوة 1</div>
+        <div class="step-text">اختر المنتج</div>
+      </div>
+      <div class="step">
+        <div class="step-icon">💬</div>
+        <div class="step-num">الخطوة 2</div>
+        <div class="step-text">اطلب واتساب</div>
+      </div>
+      <div class="step">
+        <div class="step-icon">📦</div>
+        <div class="step-num">الخطوة 3</div>
+        <div class="step-text">يوصلك لباب البيت</div>
+      </div>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-item"><span>💵</span>دفع عند الاستلام</div>
+      <div class="trust-item"><span>🚚</span>شحن سريع</div>
+      <div class="trust-item"><span>🔄</span>استرجاع 30 يوم</div>
+    </div>
+
+    <div class="coupon-section">
+      <div class="coupon-label">🎟️ كود خصم حصري:</div>
+      <div class="coupon-value" id="couponVal">WELCOME10</div>
+      <div class="coupon-desc">خصم 10% على أول طلب — اذكر الكود عند الطلب</div>
+    </div>
+
+    <div class="categories">
+      <div class="cat-title">📂 تصفح حسب القسم</div>
+      <div class="cat-grid" id="catGrid"></div>
+    </div>
+
+    <div class="products-section">
+      <div class="cat-title">🔥 الأكثر طلباً</div>
+      <div id="topProducts"></div>
+    </div>
+
+    <div class="cta-section">
+      <a href="https://wa.me/966505989304?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8B%20%D8%8C%20%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA%20%D8%B3%D9%88%D9%82%20%D8%A7%D9%84%D8%B2%D9%8A%D9%86" class="cta-wa" target="_blank">💬 تواصل واتساب الآن</a>
+      <p class="cta-sub">رد سريع خلال 5 دقائق ⚡</p>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-item"><span>🔒</span>معاملة آمنة</div>
+      <div class="trust-item"><span>🇸🇦</span>متجر سعودي</div>
+      <div class="trust-item"><span>⭐</span>تقييم 4.8</div>
+    </div>
+
+    <div class="footer">
+      <p>سوق الزين — متجرك الإلكتروني السعودي 🇸🇦</p>
+      <p style="margin-top:8px;"><a href="index.html">🏠 المتجر</a> · <a href="products.html">📦 المنتجات</a> · <a href="track.html">📍 تتبع الطلب</a></p>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    const WHATSAPP = '966505989304';
+
+    // Categories
+    const categories = [
+      { id: 'beauty', name: 'العناية والجمال', icon: '💄' },
+      { id: 'home', name: 'المنزل والمطبخ', icon: '🏠' },
+      { id: 'tech', name: 'إلكترونيات وتقنية', icon: '📱' },
+      { id: 'car', name: 'إكسسوارات السيارة', icon: '🚗' },
+      { id: 'sport', name: 'رياضة ولياقة', icon: '💪' },
+      { id: 'fashion', name: 'أزياء وإكسسوارات', icon: '📿' },
+      { id: 'kids', name: 'أطفال ولعب', icon: '🧸' },
+    ];
+
+    const catGrid = document.getElementById('catGrid');
+    categories.forEach(cat => {
+      const count = PRODUCTS.filter(p => p.category === cat.id).length;
+      const a = document.createElement('a');
+      a.className = 'cat-btn';
+      a.href = `products.html?category=${cat.id}`;
+      a.innerHTML = `<span class="cat-icon">${cat.icon}</span><div class="cat-info"><div class="cat-name">${cat.name}</div><div class="cat-count">${count} منتج</div></div>`;
+      catGrid.appendChild(a);
+    });
+
+    // Top products
+    const topProducts = PRODUCTS.filter(p => p.featured || p.rating >= 4.8).slice(0, 10);
+    const topContainer = document.getElementById('topProducts');
+
+    topProducts.forEach(product => {
+      const msg = encodeURIComponent(`مرحباً، أبغى أطلب:\n\n${product.name}\nالسعر: ${product.price} ر.س${product.oldPrice ? ` (بدل ${product.oldPrice} ر.س)` : ''}\n\nرابط المنتج: https://az212z.github.io/souq-alzein/product.html?id=${product.id}\n\nكود الخصم: WELCOME10`);
+      const waLink = `https://wa.me/${WHATSAPP}?text=${msg}`;
+
+      const div = document.createElement('div');
+      div.className = 'product-item';
+      div.innerHTML = `
+        <img src="${product.img}" alt="${product.name}" class="product-img" loading="lazy">
+        <div class="product-info">
+          <div class="product-name">${product.name}</div>
+          <div><span class="product-old">${product.oldPrice ? product.oldPrice + ' ر.س' : ''}</span><span class="product-price">${product.price} ر.س</span></div>
+        </div>
+        <a href="${waLink}" target="_blank" class="order-btn">💬 اطلب</a>
+      `;
+      topContainer.appendChild(div);
+    });
+  </script>
+</body>
+</html>
