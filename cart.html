@@ -4,455 +4,599 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>سلة التسوق — سوق الزين</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-  <!-- Moyasar Payment Form SDK -->
-  <script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
-
+  <meta name="description" content="سلة التسوق — سوق الزين">
+  <meta property="og:title" content="سلة التسوق — سوق الزين">
   <meta property="og:locale" content="ar_SA">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
   <link rel="canonical" href="https://az212z.github.io/souq-alzein/cart.html">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    .cart-page { max-width: 960px; margin: 100px auto 40px; padding: 0 20px; }
+    .cart-empty { text-align: center; padding: 80px 20px; }
+    .cart-empty h2 { font-size: 1.5rem; margin-bottom: 8px; }
+    .cart-empty p { color: var(--text-light); margin-bottom: 24px; }
+    .cart-grid { display: grid; grid-template-columns: 1fr 360px; gap: 24px; }
+    @media (max-width: 768px) { .cart-grid { grid-template-columns: 1fr; } }
+    .cart-items-card { background: var(--card); border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .cart-item { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .cart-item:last-child { border: none; }
+    .cart-item-img { width: 80px; height: 80px; border-radius: 12px; background-size: cover; background-position: center; flex-shrink: 0; }
+    .cart-item-info { flex: 1; }
+    .cart-item-info h3 { font-size: 0.95rem; margin-bottom: 4px; }
+    .cart-item-info a { color: var(--text); text-decoration: none; }
+    .cart-item-info a:hover { color: var(--accent); }
+    .cart-item-cat { font-size: 0.8rem; color: var(--text-light); }
+    .cart-item-price { font-weight: 700; color: var(--accent); }
+    .cart-qty { display: flex; align-items: center; gap: 8px; }
+    .cart-qty button { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+    .cart-qty button:hover { background: var(--accent); color: white; border-color: var(--accent); }
+    .cart-qty span { min-width: 24px; text-align: center; font-weight: 600; }
+    .cart-item-total { font-weight: 700; min-width: 80px; text-align: left; }
+    .cart-remove { background: none; border: none; color: #999; font-size: 1.2rem; cursor: pointer; padding: 4px 8px; }
+    .cart-remove:hover { color: #e74c3c; }
+    .summary-card { background: var(--card); border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); position: sticky; top: 100px; }
+    .summary-card h2 { font-size: 1.2rem; margin-bottom: 16px; }
+    .summary-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.95rem; }
+    .summary-row.total { font-weight: 700; font-size: 1.2rem; border-top: 2px solid var(--border); padding-top: 12px; margin-top: 4px; color: var(--accent); }
+    .summary-row.discount { color: #27ae60; }
+    /* Coupon */
+    .coupon-box { margin: 16px 0; padding: 16px; background: #f8f9fa; border-radius: 12px; border: 2px dashed var(--border); }
+    .coupon-box label { font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 8px; }
+    .coupon-input-row { display: flex; gap: 8px; }
+    .coupon-input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; }
+    .coupon-btn { padding: 10px 16px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-family: 'Tajawal', sans-serif; }
+    .coupon-msg { margin-top: 8px; font-size: 0.85rem; }
+    .coupon-msg.success { color: #27ae60; }
+    .coupon-msg.error { color: #e74c3c; }
+    .coupon-applied { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #d4edda; border-radius: 8px; margin-top: 8px; }
+    .coupon-applied span { color: #155724; font-weight: 600; }
+    .coupon-remove { background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 0.85rem; }
+    .coupon-suggestions { margin-top: 8px; font-size: 0.8rem; color: var(--text-light); }
+    .coupon-suggestions span { background: #f0f0f0; padding: 2px 8px; border-radius: 4px; margin: 0 2px; cursor: pointer; }
+    .coupon-suggestions span:hover { background: var(--accent); color: white; }
+    .btn-primary { background: var(--accent); color: white; border: none; border-radius: 12px; padding: 14px 24px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; font-family: 'Tajawal', sans-serif; transition: all 0.2s; }
+    .btn-primary:hover { background: #d4374f; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-whatsapp { background: #25D366; color: white; border: none; border-radius: 12px; padding: 14px 24px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; font-family: 'Tajawal', sans-serif; transition: all 0.2s; margin-top: 8px; }
+    .btn-whatsapp:hover { background: #128C7E; }
+    .payment-trust { text-align: center; margin-top: 16px; font-size: 0.8rem; color: var(--text-light); }
+    .payment-trust .badges { display: flex; justify-content: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+    .payment-trust .badge { background: #f0f0f0; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; }
+    /* Checkout Modal */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background: var(--card); border-radius: 20px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; padding: 32px; }
+    .modal-box h2 { font-size: 1.3rem; margin-bottom: 20px; text-align: center; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
+    .form-input { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Tajawal', sans-serif; font-size: 0.95rem; background: var(--bg); color: var(--text); }
+    .form-input:focus { border-color: var(--accent); outline: none; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    .step-dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+    .step-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+    .step-dot.active { background: var(--accent); }
+    .step-dot.done { background: #27ae60; }
+    .checkout-step { display: none; }
+    .checkout-step.active { display: block; }
+    .btn-back { background: none; border: 2px solid var(--border); border-radius: 10px; padding: 12px 24px; font-family: 'Tajawal', sans-serif; font-weight: 600; cursor: pointer; margin-top: 12px; }
+    .btn-back:hover { border-color: var(--accent); }
+    /* Success Modal */
+    .success-icon { font-size: 4rem; text-align: center; }
+    .success-msg { text-align: center; }
+    .success-msg h2 { color: #27ae60; }
+    .success-msg p { color: var(--text-light); margin: 12px 0; }
+    .order-number { font-size: 1.2rem; font-weight: 700; color: var(--accent); text-align: center; padding: 16px; background: #f8f9fa; border-radius: 12px; margin: 16px 0; }
+    .success-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+    .whatsapp-share-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: #25D366; color: white; border: none; border-radius: 12px; padding: 14px; font-weight: 700; font-size: 1rem; cursor: pointer; text-decoration: none; font-family: 'Tajawal', sans-serif; }
+    .whatsapp-share-btn:hover { background: #128C7E; }
+    .track-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--accent); color: white; border: none; border-radius: 12px; padding: 14px; font-weight: 700; font-size: 1rem; cursor: pointer; text-decoration: none; font-family: 'Tajawal', sans-serif; }
+    .track-btn:hover { background: #d4374f; }
+    .continue-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--bg); color: var(--text); border: 2px solid var(--border); border-radius: 12px; padding: 14px; font-weight: 600; font-size: 1rem; cursor: pointer; text-decoration: none; font-family: 'Tajawal', sans-serif; }
+    .continue-btn:hover { border-color: var(--accent); }
+    .delivery-info { background: #f0f8ff; border-radius: 12px; padding: 16px; margin: 16px 0; }
+    .delivery-info h4 { font-size: 0.95rem; margin-bottom: 8px; color: #0066cc; }
+    .delivery-info p { font-size: 0.85rem; color: var(--text-light); margin: 4px 0; }
+    .delivery-info .highlight { color: #27ae60; font-weight: 700; }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="header" id="header">
     <div class="container header-inner">
-      <a href="index.html" class="logo"><span class="logo-icon">🛍️</span><span class="logo-text">سوق الزين</span></a>
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🛍️</span>
+        <span class="logo-text">سوق الزين</span>
+      </a>
       <nav class="nav" id="nav">
         <a href="index.html" class="nav-link">الرئيسية</a>
         <a href="products.html" class="nav-link">المنتجات</a>
         <a href="about.html" class="nav-link">من نحن</a>
         <a href="contact.html" class="nav-link">تواصل معنا</a>
-        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+        <a href="track.html" class="nav-link">تتبع الطلب</a>
       </nav>
       <div class="header-actions">
-        <a href="cart.html" class="cart-btn active" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count" id="cartCount">0</span></a>
-        <button class="menu-btn" id="menuToggle" aria-label="القائمة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+        <a href="cart.html" class="cart-btn active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="menu-btn" id="menuToggle" aria-label="القائمة">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
       </div>
     </div>
   </header>
 
-  <main class="cart-page">
-    <div class="container">
-      <div class="page-header">
-        <h1>سلة التسوق</h1>
-      </div>
+  <div class="cart-page">
+    <!-- Empty Cart -->
+    <div id="emptyCart" class="cart-empty" style="display:none;">
+      <div style="font-size:4rem;margin-bottom:16px;">🛒</div>
+      <h2>سلتك فارغة</h2>
+      <p>تصفح منتجاتنا وأضف ما يعجبك للسلة</p>
+      <a href="products.html" class="btn-primary" style="display:inline-block;width:auto;margin-top:16px;">تصفح المنتجات</a>
+    </div>
 
-      <div class="cart-layout">
-        <div class="cart-items" id="cartItems">
-          <!-- Filled by JS -->
+    <!-- Cart Content -->
+    <div id="cartContent" style="display:none;">
+      <div class="cart-grid">
+        <!-- Items -->
+        <div class="cart-items-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <h2 style="font-size:1.2rem;">🛒 سلة التسوق</h2>
+            <button onclick="clearCart()" style="background:none;border:none;color:#e74c3c;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:0.9rem;">إفراغ السلة</button>
+          </div>
+          <div id="cartItems"></div>
         </div>
 
-        <div class="cart-summary" id="cartSummary">
-          <h2>ملخص الطلب</h2>
-          <div class="summary-row">
-            <span>المجموع الفرعي</span>
-            <span id="subtotal">0 ر.س</span>
+        <!-- Summary -->
+        <div class="summary-card">
+          <h2>📋 ملخص الطلب</h2>
+
+          <div id="summaryRows">
+            <div class="summary-row"><span>المجموع الفرعي</span><span id="subtotal">0 ر.س</span></div>
+            <div class="summary-row"><span>الشحن</span><span id="shipping">0 ر.س</span></div>
+            <div class="summary-row"><span>الضريبة (15%)</span><span id="tax">0 ر.س</span></div>
           </div>
-          <div class="summary-row">
-            <span>الشحن</span>
-            <span id="shipping">مجاني</span>
+
+          <!-- Coupon -->
+          <div class="coupon-box">
+            <label>🎁 هل لديك كود خصم؟</label>
+            <div class="coupon-input-row">
+              <input type="text" id="couponInput" class="coupon-input" placeholder="أدخل كود الخصم" autocomplete="off">
+              <button class="coupon-btn" id="couponBtn">تطبيق</button>
+            </div>
+            <div id="couponMsg" class="coupon-msg"></div>
+            <div id="couponApplied" style="display:none;"></div>
+            <div class="coupon-suggestions">جرّب: <span onclick="applyCouponSuggestion('WELCOME10')">WELCOME10</span> <span onclick="applyCouponSuggestion('LAUNCH20')">LAUNCH20</span> <span onclick="applyCouponSuggestion('FREE50')">FREE50</span></div>
           </div>
-          <div class="summary-row">
-            <span>الضريبة (15%)</span>
-            <span id="tax">0 ر.س</span>
+
+          <div id="discountRow" class="summary-row discount" style="display:none;">
+            <span>الخصم</span><span id="discountAmount">0 ر.س</span>
           </div>
-          <div class="summary-divider"></div>
-          <div class="summary-row summary-total">
-            <span>الإجمالي</span>
-            <span id="total">0 ر.س</span>
+
+          <div class="summary-row total"><span>الإجمالي</span><span id="total">0 ر.س</span></div>
+
+          <button class="btn-primary" id="checkoutBtn" style="margin-top:16px;">
+            إتمام الطلب — الدفع عند الاستلام 📦
+          </button>
+
+          <a href="#" class="btn-whatsapp" id="whatsappOrderBtn" style="text-align:center;text-decoration:none;display:block;">
+            💬 اطلب عبر واتساب
+          </a>
+
+          <div class="delivery-info">
+            <h4>🚚 معلومات التوصيل</h4>
+            <p>✅ شحن لجميع مناطق السعودية</p>
+            <p class="highlight">🎁 شحن مجاني للطلبات فوق 200 ر.س</p>
+            <p>⏱️ التوصيل خلال 2-5 أيام عمل</p>
+            <p>💵 الدفع عند الاستلام (COD)</p>
           </div>
-          <button class="btn btn-primary btn-block" id="checkoutBtn">إتمام الشراء — الدفع الآمن 🔒</button>
+
           <div class="payment-trust">
-            <span>بوابة دفع Moyasar معتمدة في السعودية</span>
-            <div class="payment-badges">
-              <span>🏦 مدى</span><span>💳 Visa</span><span>💳 Mastercard</span><span>📱 Apple Pay</span><span>💰 STC Pay</span><span>🧾 Tabby</span>
+            <span>🔒 معلوماتك محمية</span>
+            <div class="badges">
+              <span class="badge">🇸🇦 شحن سعودي</span>
+              <span class="badge">📦 ضمان الاستلام</span>
+              <span class="badge">🔄 إرجاع 30 يوم</span>
             </div>
           </div>
-          <a href="products.html" class="continue-shopping">← متابعة التسوق</a>
         </div>
       </div>
-
-      <!-- Empty Cart -->
-      <div class="empty-cart" id="emptyCart" style="display:none">
-        <div class="empty-cart-icon">🛒</div>
-        <h2>سلتك فارغة</h2>
-        <p>لم تضف أي منتجات بعد — تصفح منتجاتنا المميزة</p>
-        <a href="products.html" class="btn btn-primary">تصفح المنتجات</a>
-      </div>
     </div>
-  </main>
+  </div>
 
-  <!-- Checkout Modal with Moyasar Payment -->
+  <!-- Checkout Modal -->
   <div class="modal-overlay" id="checkoutModal">
-    <div class="modal modal-lg">
-      <div class="modal-header">
-        <h2>🔒 إتمام الطلب — الدفع الآمن</h2>
-        <button class="modal-close" id="modalClose">&times;</button>
+    <div class="modal-box">
+      <div class="step-dots">
+        <div class="step-dot active" id="dot1"></div>
+        <div class="step-dot" id="dot2"></div>
       </div>
 
       <!-- Step 1: Customer Info -->
-      <div class="checkout-step" id="step1">
-        <div class="step-indicator">
-          <div class="step active"><span>1</span> البيانات</div>
-          <div class="step-line"></div>
-          <div class="step"><span>2</span> الدفع</div>
-          <div class="step-line"></div>
-          <div class="step"><span>3</span> التأكيد</div>
-        </div>
-
-        <form class="checkout-form" id="customerForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>الاسم الكامل *</label>
-              <input type="text" id="custName" required placeholder="محمد أحمد">
-            </div>
-            <div class="form-group">
-              <label>رقم الجوال *</label>
-              <input type="tel" id="custPhone" required placeholder="05XXXXXXXX" dir="ltr" pattern="05[0-9]{8}">
-            </div>
+      <div class="checkout-step active" id="step1">
+        <h2>📝 بيانات التوصيل</h2>
+        <form id="customerForm">
+          <div class="form-group">
+            <label>الاسم الكامل *</label>
+            <input type="text" id="custName" class="form-input" required placeholder="محمد أحمد">
+          </div>
+          <div class="form-group">
+            <label>رقم الجوال *</label>
+            <input type="tel" id="custPhone" class="form-input" required placeholder="05XXXXXXXX" pattern="^05[0-9]{8}$">
+          </div>
+          <div class="form-group">
+            <label>البريد الإلكتروني</label>
+            <input type="email" id="custEmail" class="form-input" placeholder="example@email.com">
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>البريد الإلكتروني *</label>
-              <input type="email" id="custEmail" required placeholder="example@email.com">
+              <label>المدينة *</label>
+              <select id="custCity" class="form-input" required>
+                <option value="">اختر المدينة</option>
+                <option value="الرياض">الرياض</option>
+                <option value="جدة">جدة</option>
+                <option value="الدمام">الدمام</option>
+                <option value="مكة المكرمة">مكة المكرمة</option>
+                <option value="المدينة المنورة">المدينة المنورة</option>
+                <option value="الخبر">الخبر</option>
+                <option value="تبوك">تبوك</option>
+                <option value="أبها">أبها</option>
+                <option value="الطائف">الطائف</option>
+                <option value="بريدة">بريدة</option>
+                <option value="نجران">نجران</option>
+                <option value="حائل">حائل</option>
+                <option value="ينبع">ينبع</option>
+                <option value="الجبيل">الجبيل</option>
+                <option value="القطيف">القطيف</option>
+                <option value="أخرى">مدينة أخرى</option>
+              </select>
             </div>
             <div class="form-group">
-              <label>المدينة *</label>
-              <select id="custCity" required>
-                <option value="">اختر المدينة</option>
-                <option>الرياض</option>
-                <option>جدة</option>
-                <option>الدمام</option>
-                <option>مكة المكرمة</option>
-                <option>المدينة المنورة</option>
-                <option>أبها</option>
-                <option>تبوك</option>
-                <option>القطيف</option>
-                <option>خميس مشيط</option>
-                <option>بريدة</option>
-                <option>نجران</option>
-                <option>الجبيل</option>
-                <option>ينبع</option>
-                <option>أخرى</option>
-              </select>
+              <label>الحي *</label>
+              <input type="text" id="custDistrict" class="form-input" required placeholder="اسم الحي">
             </div>
           </div>
           <div class="form-group">
             <label>العنوان التفصيلي *</label>
-            <textarea id="custAddress" required placeholder="الحي، الشارع، رقم المبنى، الرمز البريدي..."></textarea>
+            <input type="text" id="custAddress" class="form-input" required placeholder="الشارع، المبنى، الطابق، رقم الشقة">
           </div>
-
           <div class="form-group">
-            <label>طريقة الدفع</label>
-            <div class="payment-options">
-              <label class="payment-option selected">
-                <input type="radio" name="payMethod" value="moyasar" checked>
-                <div class="pay-opt-content">
-                  <span class="pay-opt-title">💳 الدفع الإلكتروني</span>
-                  <span class="pay-opt-desc">مدى · Visa · Mastercard · Apple Pay · STC Pay</span>
-                </div>
-              </label>
-              <label class="payment-option">
-                <input type="radio" name="payMethod" value="cod">
-                <div class="pay-opt-content">
-                  <span class="pay-opt-title">💵 الدفع عند الاستلام</span>
-                  <span class="pay-opt-desc">ادفع نقداً عند استلام الشحنة</span>
-                </div>
-              </label>
-            </div>
+            <label>ملاحظات إضافية</label>
+            <textarea id="custNotes" class="form-input" rows="2" placeholder="مثال: الاتصال قبل التوصيل، رمز البوابة..."></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-block" id="toPaymentBtn">متابعة للدفع →</button>
+          <button type="submit" class="btn-primary" style="margin-top:8px;">
+            تأكيد الطلب 📦
+          </button>
         </form>
       </div>
 
-      <!-- Step 2: Moyasar Payment Form -->
-      <div class="checkout-step hidden" id="step2">
-        <div class="step-indicator">
-          <div class="step completed"><span>✓</span> البيانات</div>
-          <div class="step-line active"></div>
-          <div class="step active"><span>2</span> الدفع</div>
-          <div class="step-line"></div>
-          <div class="step"><span>3</span> التأكيد</div>
+      <!-- Step 2: Success -->
+      <div class="checkout-step" id="step2">
+        <div class="success-icon">🎉</div>
+        <div class="success-msg">
+          <h2>تم تأكيد طلبك!</h2>
+          <p>شكراً لتسوقك معنا في سوق الزين</p>
         </div>
-
-        <div class="order-summary-mini" id="orderSummaryMini"></div>
-
-        <!-- Moyasar Payment Form Mount Point -->
-        <div id="moyasar-payment-form"></div>
-
-        <button class="btn btn-ghost btn-block" id="backToStep1" style="margin-top:12px">← رجوع للبيانات</button>
-      </div>
-
-      <!-- Step 3: COD Confirmation -->
-      <div class="checkout-step hidden" id="step3">
-        <div class="step-indicator">
-          <div class="step completed"><span>✓</span> البيانات</div>
-          <div class="step-line active"></div>
-          <div class="step active"><span>2</span> الدفع</div>
-          <div class="step-line"></div>
-          <div class="step"><span>3</span> التأكيد</div>
+        <div class="order-number" id="orderNumber"></div>
+        <div id="orderSummaryMini" style="margin:16px 0;font-size:0.9rem;"></div>
+        <div class="delivery-info" style="margin:16px 0;">
+          <h4>📦 ماذا يحدث الآن؟</h4>
+          <p>1️⃣ سنتواصل معك عبر واتساب لتأكيد الطلب</p>
+          <p>2️⃣ يتم تحضير وشحن طلبك خلال 24 ساعة</p>
+          <p>3️⃣ يوصلك مندوب الشحن خلال 2-5 أيام عمل</p>
+          <p>4️⃣ تدفع عند الاستلام 💵</p>
         </div>
-
-        <div class="cod-confirm">
-          <div class="cod-icon">📦</div>
-          <h3>تأكيد طلب الدفع عند الاستلام</h3>
-          <div class="order-summary-mini" id="codSummary"></div>
-          <p class="cod-note">سيتم التواصل معك خلال ساعة لتأكيد الطلب وموعد التوصيل</p>
-          <button class="btn btn-primary btn-block" id="confirmCodBtn">تأكيد الطلب 📦</button>
-          <button class="btn btn-ghost btn-block" id="backFromCod" style="margin-top:8px">← رجوع</button>
+        <div class="success-actions">
+          <a href="#" class="whatsapp-share-btn" id="whatsappConfirmBtn">
+            💬 تأكيد عبر واتساب
+          </a>
+          <a href="track.html" class="track-btn">
+            📦 تتبع طلبك
+          </a>
+          <a href="products.html" class="continue-btn">
+            🛍️ متابعة التسوق
+          </a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Success Modal -->
-  <div class="modal-overlay" id="successModal">
-    <div class="modal modal-sm">
-      <div class="success-icon">🎉</div>
-      <h2>تم تأكيد طلبك بنجاح!</h2>
-      <p id="successMsg">شكراً لتسوقك معنا — ستصلك رسالة تأكيد على جوالك وبريدك الإلكتروني</p>
-      <div class="order-number" id="orderNumber"></div>
-      <a href="index.html" class="btn btn-primary">العودة للرئيسية</a>
-    </div>
-  </div>
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
 
-  <footer class="footer">
-    <div class="container"><div class="footer-bottom"><p>© 2026 سوق الزين. جميع الحقوق محفوظة.</p></div></div>
-  </footer>
-
-  <div class="toast" id="toast"></div>
-
-  <!-- WhatsApp Float -->
-  <a href="https://wa.me/966500000000?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="whatsapp-float" target="_blank" rel="noopener" aria-label="تواصل واتساب">
-    <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 3.5 1.136 6.744 3.052 9.378L1.056 31.2l6.098-1.952A15.9 15.9 0 0016.004 32C24.826 32 32 24.824 32 16.004S24.826 0 16.004 0zm9.312 22.61c-.39 1.1-2.296 2.1-3.178 2.234-.816.122-1.848.174-2.98-.19a27.1 27.1 0 01-2.704-1c-4.756-2.058-7.86-6.9-8.096-7.224-.236-.312-1.938-2.582-1.938-4.922s1.226-3.488 1.66-3.964c.434-.476.948-.596 1.264-.596.316 0 .632.002.908.016.292.014.682-.11 1.068.814.39.936 1.33 3.254 1.448 3.49.118.236.196.512.04.826-.158.316-.236.512-.472.79-.236.276-.498.618-.71.828-.236.236-.484.492-.208.964.276.472 1.226 2.024 2.63 3.28 1.808 1.612 3.334 2.112 3.808 2.35.472.236.748.196 1.026-.118.276-.316 1.184-1.38 1.5-1.856.316-.472.632-.392 1.068-.236.434.158 2.744 1.294 3.218 1.53.472.236.79.354.908.55.118.196.118 1.136-.272 2.234z"/></svg>
-  </a>
   <script src="js/data.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/order.js"></script>
   <script src="js/app.js"></script>
-
-  <style>
-    /* Checkout Steps */
-    .checkout-step.hidden{display:none}
-    .step-indicator{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:24px;padding:12px 0}
-    .step-indicator .step{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.75rem;color:var(--text-light)}
-    .step-indicator .step span{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg);border:2px solid var(--border);font-weight:700;font-size:.8rem}
-    .step-indicator .step.active span{background:var(--accent);color:#fff;border-color:var(--accent)}
-    .step-indicator .step.completed span{background:var(--gold);color:var(--primary);border-color:var(--gold)}
-    .step-line{flex:1;height:2px;background:var(--border);margin:0 8px;min-width:30px}
-    .step-line.active{background:var(--accent)}
-
-    .modal-lg{max-width:640px;width:95%}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media(max-width:600px){.form-row{grid-template-columns:1fr}}
-
-    /* Payment Options Enhanced */
-    .payment-options{display:flex;flex-direction:column;gap:10px}
-    .payment-option{display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s}
-    .payment-option:hover{border-color:var(--accent)}
-    .payment-option.selected{border-color:var(--accent);background:rgba(233,69,96,.08)}
-    .payment-option input[type="radio"]{width:18px;height:18px;accent-color:var(--accent)}
-    .pay-opt-content{display:flex;flex-direction:column;gap:2px}
-    .pay-opt-title{font-weight:700;font-size:.95rem}
-    .pay-opt-desc{font-size:.75rem;color:var(--text-light)}
-
-    /* Order Summary Mini */
-    .order-summary-mini{background:var(--bg);border-radius:12px;padding:16px;margin-bottom:20px}
-    .order-summary-mini .os-row{display:flex;justify-content:space-between;padding:4px 0;font-size:.85rem}
-    .order-summary-mini .os-total{border-top:1px solid var(--border);margin-top:8px;padding-top:8px;font-weight:700;font-size:1rem}
-
-    /* COD Confirm */
-    .cod-confirm{text-align:center;padding:20px 0}
-    .cod-icon{font-size:4rem;margin-bottom:12px}
-    .cod-note{color:var(--text-light);font-size:.85rem;margin:12px 0}
-    .order-number{background:var(--gold);color:var(--primary);padding:10px 20px;border-radius:8px;font-weight:700;margin:16px 0;display:inline-block;font-size:1.1rem}
-
-    /* Moyasar Form Styling */
-    #moyasar-payment-form{min-height:300px}
-    .mpf__container{direction:ltr!important}
-
-    /* Btn Ghost */
-    .btn-ghost{background:transparent;border:2px solid var(--border);color:var(--text);padding:12px 24px;border-radius:12px;cursor:pointer;font-family:inherit;font-size:.9rem;transition:all .2s}
-    .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
-  </style>
-
   <script>
-    // ===== Moyasar Payment Integration =====
-    // Test key for development — replace with pk_live_ for production
-    const MOYASAR_PK = 'pk_test_YrKfg4YqGbdQqzKx2T2xgVPiM4A9kNRAfAB3MqRq';
-
     let currentOrder = null;
+    let appliedCoupon = null;
+    let couponDiscount = 0;
 
-    // Generate order ID
-    function generateOrderId() {
-      return 'SZ-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 5).toUpperCase();
-    }
+    // ===== Initialize =====
+    document.addEventListener('DOMContentLoaded', () => {
+      Cart.init();
+      Cart.updateUI();
+      renderCart();
+      updateWhatsAppLink();
 
-    // Calculate totals from cart
-    function getCartTotals() {
-      const cart = JSON.parse(localStorage.getItem('souq-alzein-cart') || '[]');
-      let subtotal = 0;
-      cart.forEach(item => {
-        const product = PRODUCTS.find(p => p.id === item.id);
-        if (product) subtotal += product.price * item.qty;
+      // Checkout button
+      document.getElementById('checkoutBtn').addEventListener('click', () => {
+        const cart = JSON.parse(localStorage.getItem('souq-alzein-cart') || '[]');
+        if (cart.length === 0) { showToast('سلتك فارغة!'); return; }
+        document.getElementById('checkoutModal').style.display = 'flex';
       });
-      const shipping = subtotal >= 200 ? 0 : 25;
-      const tax = Math.round(subtotal * 0.15 * 100) / 100;
-      const total = subtotal + shipping + tax;
-      return { subtotal, shipping, tax, total, items: cart };
-    }
 
-    // Build order summary HTML
-    function buildOrderSummaryHTML(totals) {
-      let itemsHTML = '';
-      totals.items.forEach(item => {
-        const p = PRODUCTS.find(pr => pr.id === item.id);
-        if (p) itemsHTML += `<div class="os-row"><span>${p.name} × ${item.qty}</span><span>${p.price * item.qty} ر.س</span></div>`;
+      // Customer form submit
+      document.getElementById('customerForm').addEventListener('submit', handleCheckout);
+
+      // Coupon
+      document.getElementById('couponBtn').addEventListener('click', applyCoupon);
+      document.getElementById('couponInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') applyCoupon();
       });
-      return `
-        ${itemsHTML}
-        <div class="os-row"><span>الشحن</span><span>${totals.shipping === 0 ? 'مجاني' : totals.shipping + ' ر.س'}</span></div>
-        <div class="os-row"><span>الضريبة (15%)</span><span>${totals.tax} ر.س</span></div>
-        <div class="os-row os-total"><span>الإجمالي</span><span>${totals.total} ر.س</span></div>
-      `;
-    }
 
-    // Initialize Moyasar Payment Form
-    function initMoyasarForm(amount, description, customerName, customerEmail, customerPhone) {
-      const mountPoint = document.getElementById('moyasar-payment-form');
-      mountPoint.innerHTML = ''; // Clear previous
-
-      Moyasar.init({
-        element: '#moyasar-payment-form',
-        language: 'ar',
-        publishable_api_key: MOYASAR_PK,
-        amount: Math.round(amount * 100), // Convert to halalas
-        currency: 'SAR',
-        description: description,
-        methods: ['creditcard', 'applepay', 'stcpay'],
-        supported_networks: ['mada', 'visa', 'mastercard'],
-        callback_url: 'https://az212z.github.io/souq-alzein/cart.html',
-        metadata: {
-          order_id: currentOrder,
-          customer_phone: customerPhone,
-          source: 'souq-alzein-web'
-        },
-        credit_card: {
-          save_card: true,
-          manual: false
-        },
-        on_completed: async function(payment) {
-          console.log('Payment completed:', payment);
-          handlePaymentSuccess(payment);
-        },
-        on_failure: async function(error) {
-          console.error('Payment failed:', error);
-          showToast('فشل الدفع — حاول مرة أخرى', 'error');
+      // Close modal
+      document.getElementById('checkoutModal').addEventListener('click', (e) => {
+        if (e.target.id === 'checkoutModal') {
+          document.getElementById('checkoutModal').style.display = 'none';
         }
       });
-    }
+    });
 
-    // Handle successful payment
-    function handlePaymentSuccess(payment) {
-      localStorage.removeItem('souq-alzein-cart');
-      document.getElementById('checkoutModal').style.display = 'none';
-      document.getElementById('orderNumber').textContent = 'رقم الطلب: ' + currentOrder;
-      document.getElementById('successMsg').textContent = 'تم الدفع بنجاح! ستصلك رسالة تأكيد على جوالك وبريدك الإلكتروني';
-      document.getElementById('successModal').style.display = 'flex';
-      updateCartCount();
-      renderCart();
-    }
+    // ===== Render Cart =====
+    function renderCart() {
+      const container = document.getElementById('cartItems');
+      const emptyEl = document.getElementById('emptyCart');
+      const contentEl = document.getElementById('cartContent');
+      const summaryEl = document.getElementById('summaryRows');
 
-    // ===== Step Navigation =====
-    document.getElementById('checkoutBtn').addEventListener('click', () => {
-      const cart = JSON.parse(localStorage.getItem('souq-alzein-cart') || '[]');
-      if (cart.length === 0) {
-        showToast('سلتك فارغة!');
+      if (Cart.items.length === 0) {
+        emptyEl.style.display = 'flex';
+        contentEl.style.display = 'none';
         return;
       }
-      // Reset to step 1
-      showStep(1);
-      document.getElementById('checkoutModal').style.display = 'flex';
-    });
 
-    // Close modal
-    document.getElementById('modalClose').addEventListener('click', () => {
-      document.getElementById('checkoutModal').style.display = 'none';
-    });
-    document.getElementById('checkoutModal').addEventListener('click', (e) => {
-      if (e.target.id === 'checkoutModal') document.getElementById('checkoutModal').style.display = 'none';
-    });
-    document.getElementById('successModal').addEventListener('click', (e) => {
-      if (e.target.id === 'successModal') document.getElementById('successModal').style.display = 'none';
-    });
+      emptyEl.style.display = 'none';
+      contentEl.style.display = 'block';
 
-    function showStep(num) {
-      document.querySelectorAll('.checkout-step').forEach(el => el.classList.add('hidden'));
-      document.getElementById('step' + num).classList.remove('hidden');
+      container.innerHTML = Cart.items.map(item => {
+        const p = PRODUCTS.find(pr => pr.id === item.id);
+        if (!p) return '';
+        const imgStyle = p.img ? `background-image:url('${p.img}?width=200');background-size:cover;background-position:center;` : `background:${p.gradient};`;
+        const iconHtml = p.img ? '' : `<span style="font-size:2rem">${p.icon}</span>`;
+        return `
+          <div class="cart-item">
+            <div class="cart-item-img" style="${imgStyle}">${iconHtml}</div>
+            <div class="cart-item-info">
+              <h3><a href="product.html?id=${p.id}">${p.name}</a></h3>
+              <span class="cart-item-cat">${CATEGORY_NAMES[p.category]}</span>
+              <span class="cart-item-price">${p.price} ر.س</span>
+            </div>
+            <div class="cart-qty">
+              <button onclick="updateQty(${p.id}, ${item.qty - 1})">−</button>
+              <span>${item.qty}</span>
+              <button onclick="updateQty(${p.id}, ${item.qty + 1})">+</button>
+            </div>
+            <div class="cart-item-total">${(p.price * item.qty).toLocaleString()} ر.س</div>
+            <button class="cart-remove" onclick="removeItem(${p.id})">×</button>
+          </div>`;
+      }).join('');
+
+      updateSummary();
+      updateWhatsAppLink();
     }
 
-    // Step 1 → Step 2/3
-    document.getElementById('customerForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('custName').value;
-      const email = document.getElementById('custEmail').value;
-      const phone = document.getElementById('custPhone').value;
-      const city = document.getElementById('custCity').value;
-      const address = document.getElementById('custAddress').value;
-      const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
-
-      const totals = getCartTotals();
-      currentOrder = generateOrderId();
-      const summaryHTML = buildOrderSummaryHTML(totals);
-
-      if (payMethod === 'moyasar') {
-        // Show Moyasar payment form
-        document.getElementById('orderSummaryMini').innerHTML = summaryHTML;
-        showStep(2);
-        // Wait for step2 to be visible before initializing Moyasar
-        setTimeout(() => {
-          initMoyasarForm(totals.total, `طلب ${currentOrder} — سوق الزين`, name, email, phone);
-        }, 200);
-      } else {
-        // COD
-        document.getElementById('codSummary').innerHTML = summaryHTML;
-        showStep(3);
-      }
-    });
-
-    // Payment option selection visual
-    document.querySelectorAll('.payment-option input[type="radio"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
-        radio.closest('.payment-option').classList.add('selected');
-      });
-    });
-
-    // Back buttons
-    document.getElementById('backToStep1').addEventListener('click', () => showStep(1));
-    document.getElementById('backFromCod').addEventListener('click', () => showStep(1));
-
-    // COD confirm
-    document.getElementById('confirmCodBtn').addEventListener('click', () => {
-      localStorage.removeItem('souq-alzein-cart');
-      document.getElementById('checkoutModal').style.display = 'none';
-      document.getElementById('orderNumber').textContent = 'رقم الطلب: ' + currentOrder;
-      document.getElementById('successMsg').textContent = 'تم تأكيد طلبك! سيتواصل معك مندوبنا خلال ساعة لتأكيد موعد التوصيل';
-      document.getElementById('successModal').style.display = 'flex';
-      updateCartCount();
+    function updateQty(id, qty) {
+      if (qty <= 0) { Cart.remove(id); } else { Cart.updateQty(id, qty); }
       renderCart();
-    });
+    }
 
-    // Check for payment callback in URL
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('payment') === 'callback') {
-      const status = urlParams.get('status');
-      if (status === 'paid') {
-        localStorage.removeItem('souq-alzein-cart');
-        document.getElementById('orderNumber').textContent = 'رقم الطلب: ' + (urlParams.get('id') || generateOrderId());
-        document.getElementById('successMsg').textContent = 'تم الدفع بنجاح! شكراً لتسوقك معنا';
-        document.getElementById('successModal').style.display = 'flex';
+    function removeItem(id) {
+      Cart.remove(id);
+      renderCart();
+    }
+
+    function clearCart() {
+      if (confirm('هل أنت متأكد من إفراغ السلة؟')) {
+        Cart.clear();
+        couponDiscount = 0;
+        appliedCoupon = null;
+        renderCart();
       }
+    }
+
+    // ===== Summary =====
+    function updateSummary() {
+      const subtotal = Cart.getSubtotal();
+      const shipping = subtotal >= StoreConfig.shippingFreeThreshold ? 0 : StoreConfig.shippingCost;
+      const discountTotal = couponDiscount;
+      const afterDiscount = Math.max(0, subtotal - discountTotal);
+      const tax = Math.round(afterDiscount * StoreConfig.taxRate * 100) / 100;
+      const total = afterDiscount + shipping + tax;
+
+      document.getElementById('subtotal').textContent = subtotal.toLocaleString() + ' ر.س';
+      document.getElementById('shipping').textContent = shipping === 0 ? 'مجاني 🎉' : shipping + ' ر.س';
+      document.getElementById('tax').textContent = tax.toLocaleString() + ' ر.س';
+      document.getElementById('total').textContent = total.toLocaleString() + ' ر.س';
+
+      const discountRow = document.getElementById('discountRow');
+      if (discountTotal > 0) {
+        discountRow.style.display = 'flex';
+        document.getElementById('discountAmount').textContent = '-' + discountTotal.toLocaleString() + ' ر.س';
+      } else {
+        discountRow.style.display = 'none';
+      }
+    }
+
+    // ===== Coupon =====
+    function applyCoupon() {
+      const input = document.getElementById('couponInput');
+      const msg = document.getElementById('couponMsg');
+      const code = input.value.trim().toUpperCase();
+
+      if (!code) { msg.textContent = 'أدخل كود الخصم'; msg.className = 'coupon-msg error'; return; }
+
+      const result = Coupons.apply(code, Cart.getSubtotal());
+      if (result.valid) {
+        appliedCoupon = result.coupon.code;
+        couponDiscount = result.discount;
+        msg.textContent = `✅ ${result.desc}`;
+        msg.className = 'coupon-msg success';
+
+        document.getElementById('couponApplied').style.display = 'flex';
+        document.getElementById('couponApplied').className = 'coupon-applied';
+        document.getElementById('couponApplied').innerHTML = `
+          <span>🏷️ ${result.coupon.code}: -${result.discount.toLocaleString()} ر.س</span>
+          <button class="coupon-remove" onclick="removeCoupon()">إزالة</button>
+        `;
+        input.disabled = true;
+        document.getElementById('couponBtn').disabled = true;
+      } else {
+        msg.textContent = '❌ ' + result.error;
+        msg.className = 'coupon-msg error';
+      }
+
+      updateSummary();
+    }
+
+    function applyCouponSuggestion(code) {
+      document.getElementById('couponInput').value = code;
+      applyCoupon();
+    }
+
+    function removeCoupon() {
+      appliedCoupon = null;
+      couponDiscount = 0;
+      document.getElementById('couponInput').value = '';
+      document.getElementById('couponInput').disabled = false;
+      document.getElementById('couponBtn').disabled = false;
+      document.getElementById('couponMsg').textContent = '';
+      document.getElementById('couponApplied').style.display = 'none';
+      updateSummary();
+    }
+
+    // ===== WhatsApp Order Link =====
+    function updateWhatsAppLink() {
+      const btn = document.getElementById('whatsappOrderBtn');
+      if (!btn) return;
+      const cart = JSON.parse(localStorage.getItem('souq-alzein-cart') || '[]');
+      if (cart.length === 0) {
+        btn.href = '#';
+        return;
+      }
+      let msg = '🛒 أبي أطلب من سوق الزين:\n\n';
+      cart.forEach(item => {
+        const p = PRODUCTS.find(pr => pr.id === item.id);
+        if (p) msg += `• ${p.name} × ${item.qty} = ${(p.price * item.qty).toLocaleString()} ر.س\n`;
+      });
+      const subtotal = Cart.getSubtotal();
+      const shipping = subtotal >= StoreConfig.shippingFreeThreshold ? 0 : StoreConfig.shippingCost;
+      msg += `\n💰 المجموع: ${subtotal.toLocaleString()} ر.س`;
+      msg += `\n🚚 الشحن: ${shipping === 0 ? 'مجاني' : shipping + ' ر.س'}`;
+      btn.href = `https://wa.me/${StoreConfig.whatsapp}?text=${encodeURIComponent(msg)}`;
+    }
+
+    // ===== Checkout Handler =====
+    function handleCheckout(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const email = document.getElementById('custEmail').value.trim();
+      const city = document.getElementById('custCity').value;
+      const district = document.getElementById('custDistrict').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+      const notes = document.getElementById('custNotes').value.trim();
+
+      if (!name || !phone || !city || !district || !address) {
+        showToast('يرجى ملء جميع الحقول المطلوبة');
+        return;
+      }
+
+      // Validate Saudi phone
+      if (!/^05[0-9]{8}$/.test(phone)) {
+        showToast('يرجى إدخال رقم جوال سعودي صحيح (05XXXXXXXX)');
+        return;
+      }
+
+      const cart = JSON.parse(localStorage.getItem('souq-alzein-cart') || '[]');
+      const subtotal = Cart.getSubtotal();
+      const shipping = subtotal >= StoreConfig.shippingFreeThreshold ? 0 : StoreConfig.shippingCost;
+      const afterDiscount = Math.max(0, subtotal - couponDiscount);
+      const tax = Math.round(afterDiscount * StoreConfig.taxRate * 100) / 100;
+      const total = afterDiscount + shipping + tax;
+
+      const totals = { subtotal, shipping, tax, total, couponCode: appliedCoupon, couponDiscount };
+
+      const customer = {
+        name, phone, email: email || `${phone}@souq-alzein.com`, city, district, address, notes
+      };
+
+      const items = cart.map(item => {
+        const p = PRODUCTS.find(pr => pr.id === item.id);
+        return { id: item.id, qty: item.qty, name: p?.name, price: p?.price };
+      });
+
+      // Create order
+      const order = Orders.create(customer, items, totals, 'cod');
+
+      // Update order with tracking
+      Orders.updateStatus(order.id, 'pending', 'تم استلام الطلب');
+
+      // Save current order ID
+      currentOrder = order.id;
+
+      // Show success
+      showStep(2);
+      document.getElementById('orderNumber').textContent = `📋 رقم الطلب: ${order.id}`;
+
+      // Build mini summary
+      let summaryHtml = '';
+      items.forEach(item => {
+        const p = PRODUCTS.find(pr => pr.id === item.id);
+        if (p) summaryHtml += `<div style="display:flex;justify-content:space-between;padding:4px 0"><span>${p.name} × ${item.qty}</span><span>${(p.price * item.qty).toLocaleString()} ر.س</span></div>`;
+      });
+      summaryHtml += `<div style="border-top:1px solid #eee;padding-top:4px;margin-top:4px">`;
+      summaryHtml += `<div style="display:flex;justify-content:space-between"><span>الشحن</span><span>${shipping === 0 ? 'مجاني 🎉' : shipping + ' ر.س'}</span></div>`;
+      summaryHtml += `<div style="display:flex;justify-content:space-between"><span>الضريبة</span><span>${tax.toLocaleString()} ر.س</span></div>`;
+      if (couponDiscount > 0) summaryHtml += `<div style="display:flex;justify-content:space-between;color:#27ae60"><span>الخصم (${appliedCoupon})</span><span>-${couponDiscount.toLocaleString()} ر.س</span></div>`;
+      summaryHtml += `<div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;color:var(--accent);margin-top:4px"><span>الإجمالي</span><span>${total.toLocaleString()} ر.س</span></div>`;
+      summaryHtml += `</div>`;
+      document.getElementById('orderSummaryMini').innerHTML = summaryHtml;
+
+      // WhatsApp confirmation button
+      const waMsg = WhatsAppOrder.generateMessage(order);
+      document.getElementById('whatsappConfirmBtn').href = `https://wa.me/${StoreConfig.whatsapp}?text=${encodeURIComponent(waMsg)}`;
+
+      // Clear cart
+      Cart.clear();
+      couponDiscount = 0;
+      appliedCoupon = null;
+    }
+
+    function showStep(num) {
+      document.querySelectorAll('.checkout-step').forEach(el => el.classList.remove('active'));
+      document.getElementById('step' + num).classList.add('active');
+      document.querySelectorAll('.step-dot').forEach((dot, i) => {
+        dot.classList.remove('active', 'done');
+        if (i + 1 < num) dot.classList.add('done');
+        if (i + 1 === num) dot.classList.add('active');
+      });
+    }
+
+    // ===== Toast =====
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('active');
+      setTimeout(() => toast.classList.remove('active'), 3000);
     }
   </script>
 </body>

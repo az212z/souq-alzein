@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تتبع الطلب — سوق الزين</title>
+  <meta name="description" content="تتبع طلبك في سوق الزين — أدخل رقم الطلب لمعرفة حالة الشحن">
+  <meta property="og:title" content="تتبع الطلب — سوق الزين">
+  <meta property="og:description" content="تتبع طلبك بسهولة — أدخل رقم الطلب">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    .track-container { max-width: 600px; margin: 120px auto 40px; padding: 0 20px; }
+    .track-hero { text-align: center; padding: 60px 20px; background: linear-gradient(135deg, var(--accent) 0%, #ff6b81 100%); border-radius: 24px; color: white; margin-bottom: 32px; }
+    .track-hero h1 { font-size: 2rem; margin-bottom: 8px; }
+    .track-hero p { opacity: 0.9; font-size: 1.1rem; }
+    .track-form { display: flex; gap: 12px; margin-bottom: 32px; }
+    .track-input { flex: 1; padding: 16px 20px; border: 2px solid var(--border); border-radius: 12px; font-size: 1rem; font-family: 'Tajawal', sans-serif; background: var(--card); color: var(--text); }
+    .track-input:focus { border-color: var(--accent); outline: none; }
+    .track-btn { padding: 16px 32px; background: var(--accent); color: white; border: none; border-radius: 12px; font-size: 1rem; font-family: 'Tajawal', sans-serif; cursor: pointer; font-weight: 700; }
+    .track-btn:hover { background: #d4374f; }
+    .order-card { background: var(--card); border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .order-id { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+    .order-date { font-size: 0.9rem; color: var(--text-light); }
+    .order-status { padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+    .status-pending { background: #fff3cd; color: #856404; }
+    .status-confirmed { background: #d1ecf1; color: #0c5460; }
+    .status-processing { background: #e8daef; color: #6c3483; }
+    .status-shipped { background: #d4edda; color: #155724; }
+    .status-delivered { background: #c3e6cb; color: #155724; }
+    .order-items { margin-bottom: 16px; }
+    .order-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .order-item:last-child { border: none; }
+    .order-totals { text-align: left; }
+    .order-total-row { display: flex; justify-content: space-between; padding: 4px 0; }
+    .order-total-row.final { font-weight: 700; font-size: 1.1rem; color: var(--accent); border-top: 2px solid var(--border); padding-top: 8px; margin-top: 4px; }
+    .tracking-timeline { position: relative; padding-right: 30px; }
+    .tracking-timeline::before { content: ''; position: absolute; right: 10px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+    .tracking-step { position: relative; padding: 12px 0 12px 20px; }
+    .tracking-step::before { content: ''; position: absolute; right: 4px; top: 16px; width: 14px; height: 14px; border-radius: 50%; background: var(--border); }
+    .tracking-step.active::before { background: var(--accent); box-shadow: 0 0 0 4px rgba(233,69,96,0.2); }
+    .tracking-step-date { font-size: 0.8rem; color: var(--text-light); }
+    .tracking-step-text { font-weight: 600; }
+    .whatsapp-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: #25D366; color: white; border-radius: 12px; text-decoration: none; font-weight: 700; margin-top: 16px; transition: all 0.2s; }
+    .whatsapp-btn:hover { background: #128C7E; transform: translateY(-1px); }
+    .no-order { text-align: center; padding: 40px; color: var(--text-light); }
+    .error-msg { color: #e74c3c; text-align: center; padding: 12px; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🛍️</span>
+        <span class="logo-text">سوق الزين</span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="products.html" class="nav-link">المنتجات</a>
+        <a href="about.html" class="nav-link">من نحن</a>
+        <a href="contact.html" class="nav-link">تواصل معنا</a>
+        <a href="track.html" class="nav-link active">تتبع الطلب</a>
+      </nav>
+      <div class="header-actions">
+        <a href="cart.html" class="cart-btn" id="cartBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="menu-btn" id="menuToggle" aria-label="القائمة">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="track-container">
+    <div class="track-hero">
+      <h1>📦 تتبع طلبك</h1>
+      <p>أدخل رقم الطلب لمعرفة حالة الشحن والتوصيل</p>
+    </div>
+
+    <div class="track-form">
+      <input type="text" id="trackInput" class="track-input" placeholder="رقم الطلب (مثال: SZ-ABC123)" autocomplete="off">
+      <button class="track-btn" id="trackBtn">بحث</button>
+    </div>
+
+    <div id="trackResult"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/order.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Cart.init();
+      Cart.updateUI();
+
+      // Check URL for order ID
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('id');
+      if (orderId) {
+        document.getElementById('trackInput').value = orderId;
+        trackOrder(orderId);
+      }
+
+      document.getElementById('trackBtn').addEventListener('click', () => {
+        const id = document.getElementById('trackInput').value.trim();
+        if (id) trackOrder(id);
+      });
+
+      document.getElementById('trackInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const id = e.target.value.trim();
+          if (id) trackOrder(id);
+        }
+      });
+    });
+
+    function trackOrder(orderId) {
+      const result = document.getElementById('trackResult');
+      const order = Orders.getById(orderId);
+
+      if (!order) {
+        result.innerHTML = `
+          <div class="no-order">
+            <div style="font-size: 4rem; margin-bottom: 16px;">🔍</div>
+            <h3>لم يتم العثور على الطلب</h3>
+            <p>تأكد من رقم الطلب وحاول مرة أخرى</p>
+            <p style="margin-top:12px; font-size: 0.9rem; color: var(--text-light);">رقم الطلب يبدأ بـ SZ- ويوجد في رسالة التأكيد</p>
+            <a href="https://wa.me/${StoreConfig.whatsapp}?text=${encodeURIComponent('مرحباً، أريد الاستفسار عن طلبي رقم: ' + orderId)}" class="whatsapp-btn" style="margin-top: 20px;">
+              💬 تواصل عبر واتساب
+            </a>
+          </div>`;
+        return;
+      }
+
+      const statusClass = order.status || 'pending';
+      const statusAr = Orders.getStatusArabic(order.status);
+
+      let itemsHtml = order.items.map(item => {
+        const p = PRODUCTS.find(pr => pr.id === item.id);
+        if (!p) return '';
+        return `<div class="order-item">
+          <span>${p.name} × ${item.qty}</span>
+          <span>${(p.price * item.qty).toLocaleString()} ر.س</span>
+        </div>`;
+      }).join('');
+
+      let trackingHtml = '';
+      if (order.tracking && order.tracking.length > 0) {
+        trackingHtml = `<div class="tracking-timeline">
+          ${order.tracking.map((t, i) => `
+            <div class="tracking-step ${i === order.tracking.length - 1 ? 'active' : ''}">
+              <div class="tracking-step-date">${new Date(t.date).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
+              <div class="tracking-step-text">${Orders.getStatusArabic(t.status)}</div>
+              ${t.note ? `<div style="font-size:0.85rem;color:var(--text-light)">${t.note}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>`;
+      }
+
+      result.innerHTML = `
+        <div class="order-card">
+          <div class="order-header">
+            <div>
+              <div class="order-id">📋 ${order.id}</div>
+              <div class="order-date">${new Date(order.date).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+            </div>
+            <span class="order-status status-${statusClass}">${statusAr}</span>
+          </div>
+
+          <div class="order-items">
+            ${itemsHtml}
+          </div>
+
+          <div class="order-totals">
+            <div class="order-total-row">
+              <span>المجموع الفرعي</span>
+              <span>${order.totals.subtotal.toLocaleString()} ر.س</span>
+            </div>
+            <div class="order-total-row">
+              <span>الشحن</span>
+              <span>${order.totals.shipping === 0 ? 'مجاني 🎉' : order.totals.shipping + ' ر.س'}</span>
+            </div>
+            <div class="order-total-row">
+              <span>الضريبة (15%)</span>
+              <span>${order.totals.tax.toLocaleString()} ر.س</span>
+            </div>
+            ${order.couponDiscount ? `<div class="order-total-row" style="color:#27ae60"><span>الخصم (${order.couponCode})</span><span>-${order.couponDiscount.toLocaleString()} ر.س</span></div>` : ''}
+            <div class="order-total-row final">
+              <span>الإجمالي</span>
+              <span>${order.totals.total.toLocaleString()} ر.س</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 8px;">
+            <div style="font-size: 0.85rem; color: var(--text-light);">💳 طريقة الدفع: ${order.paymentMethod === 'cod' ? 'الدفع عند الاستلام' : 'بطاقة/مدى'}</div>
+          </div>
+        </div>
+
+        ${order.tracking && order.tracking.length > 0 ? `
+        <div class="order-card">
+          <h3 style="margin-bottom: 12px;">📍 تتبع الشحن</h3>
+          ${trackingHtml}
+        </div>` : ''}
+
+        <div style="text-align: center; margin-top: 20px;">
+          <a href="https://wa.me/${StoreConfig.whatsapp}?text=${encodeURIComponent('مرحباً، أريد الاستفسار عن طلبي رقم: ' + order.id)}" class="whatsapp-btn">
+            💬 استفسار عبر واتساب
+          </a>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

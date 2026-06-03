@@ -443,3 +443,35 @@ section{padding:80px 0}
 /* WhatsApp Float */
 .whatsapp-float{position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);z-index:999;transition:transform .2s}
 .whatsapp-float:hover{transform:scale(1.1)}
+
+/* Product Detail WhatsApp Button */
+.btn-whatsapp-detail:hover{background:#128C7E !important;transform:translateY(-1px)}
+
+/* Detail Features */
+.detail-features{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.detail-features span{background:#f0f8ff;padding:6px 14px;border-radius:8px;font-size:.85rem;color:var(--text);display:flex;align-items:center;gap:4px}
+
+/* Detail Trust Badges */
+.detail-trust{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* Coupon Box */
+.coupon-box{margin:16px 0;padding:16px;background:#f8f9fa;border-radius:12px;border:2px dashed var(--border)}
+.coupon-box label{font-weight:600;font-size:.9rem;display:block;margin-bottom:8px}
+.coupon-input-row{display:flex;gap:8px}
+.coupon-input{flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Tajawal',sans-serif;font-size:.9rem}
+.coupon-btn{padding:10px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-family:'Tajawal',sans-serif}
+.coupon-msg{margin-top:8px;font-size:.85rem}
+.coupon-msg.success{color:#27ae60}
+.coupon-msg.error{color:#e74c3c}
+.coupon-applied{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#d4edda;border-radius:8px;margin-top:8px}
+.coupon-applied span{color:#155724;font-weight:600}
+.coupon-remove{background:none;border:none;color:#e74c3c;cursor:pointer;font-size:.85rem}
+.coupon-suggestions{margin-top:8px;font-size:.8rem;color:var(--text-light)}
+.coupon-suggestions span{background:#f0f0f0;padding:2px 8px;border-radius:4px;margin:0 2px;cursor:pointer}
+.coupon-suggestions span:hover{background:var(--accent);color:#fff}
+
+/* Delivery Info */
+.delivery-info{background:#f0f8ff;border-radius:12px;padding:16px;margin:16px 0}
+.delivery-info h4{font-size:.95rem;margin-bottom:8px;color:#0066cc}
+.delivery-info p{font-size:.85rem;color:var(--text-light);margin:4px 0}
+.delivery-info .highlight{color:#27ae60;font-weight:700}

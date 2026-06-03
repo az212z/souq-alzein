@@ -4,12 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تفاصيل المنتج — سوق الزين</title>
+  <meta name="description" content="تسوق المنتج بسعر مميز مع شحن سريع — سوق الزين">
+  <meta property="og:title" content="سوق الزين — منتج مميز">
+  <meta property="og:description" content="منتج مميز بسعر تنافسي — شحن سريع لجميع مناطق السعودية">
+  <meta property="og:type" content="product">
+  <meta property="og:locale" content="ar_SA">
+  <meta property="og:url" content="https://az212z.github.io/souq-alzein/product.html">
+  <link rel="canonical" href="https://az212z.github.io/souq-alzein/product.html">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-
-  <meta property="og:locale" content="ar_SA">
-  <link rel="canonical" href="https://az212z.github.io/souq-alzein/product.html">
 </head>
 <body>
   <header class="header" id="header">
@@ -20,7 +26,7 @@
         <a href="products.html" class="nav-link">المنتجات</a>
         <a href="about.html" class="nav-link">من نحن</a>
         <a href="contact.html" class="nav-link">تواصل معنا</a>
-        <a href="faq.html" class="nav-link">الأسئلة الشائعة</a>
+        <a href="track.html" class="nav-link">تتبع الطلب</a>
       </nav>
       <div class="header-actions">
         <a href="cart.html" class="cart-btn" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count" id="cartCount">0</span></a>
@@ -31,7 +37,6 @@
 
   <main class="product-detail-page">
     <div class="container">
-      <!-- Breadcrumb -->
       <div class="breadcrumb">
         <a href="index.html">الرئيسية</a>
         <span>/</span>
@@ -40,11 +45,8 @@
         <span id="breadcrumbName">المنتج</span>
       </div>
 
-      <div class="product-detail" id="productDetail">
-        <!-- Filled by JS -->
-      </div>
+      <div class="product-detail" id="productDetail"></div>
 
-      <!-- Related Products -->
       <section class="related-products">
         <h2 class="section-title">منتجات مشابهة</h2>
         <div class="products-grid" id="relatedProducts"></div>
@@ -61,11 +63,168 @@
   <div class="toast" id="toast"></div>
 
   <!-- WhatsApp Float -->
-  <a href="https://wa.me/966500000000?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="whatsapp-float" target="_blank" rel="noopener" aria-label="تواصل واتساب">
+  <a id="whatsappFloat" href="https://wa.me/966512345678?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85" class="whatsapp-float" target="_blank" rel="noopener" aria-label="تواصل واتساب">
     <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 3.5 1.136 6.744 3.052 9.378L1.056 31.2l6.098-1.952A15.9 15.9 0 0016.004 32C24.826 32 32 24.824 32 16.004S24.826 0 16.004 0zm9.312 22.61c-.39 1.1-2.296 2.1-3.178 2.234-.816.122-1.848.174-2.98-.19a27.1 27.1 0 01-2.704-1c-4.756-2.058-7.86-6.9-8.096-7.224-.236-.312-1.938-2.582-1.938-4.922s1.226-3.488 1.66-3.964c.434-.476.948-.596 1.264-.596.316 0 .632.002.908.016.292.014.682-.11 1.068.814.39.936 1.33 3.254 1.448 3.49.118.236.196.512.04.826-.158.316-.236.512-.472.79-.236.276-.498.618-.71.828-.236.236-.484.492-.208.964.276.472 1.226 2.024 2.63 3.28 1.808 1.612 3.334 2.112 3.808 2.35.472.236.748.196 1.026-.118.276-.316 1.184-1.38 1.5-1.856.316-.472.632-.392 1.068-.236.434.158 2.744 1.294 3.218 1.53.472.236.79.354.908.55.118.196.118 1.136-.272 2.234z"/></svg>
   </a>
+
   <script src="js/data.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/order.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Cart.init();
+      Cart.updateUI();
+      renderProductDetail();
+      initHeader();
+      initSearch();
+
+      // Update WhatsApp float with real number
+      const waFloat = document.getElementById('whatsappFloat');
+      if (waFloat) {
+        waFloat.href = `https://wa.me/${StoreConfig.whatsapp}?text=${encodeURIComponent('السلام عليكم، أبغى استفسار عن منتج')}`;
+      }
+    });
+
+    function renderProductDetail() {
+      const container = document.getElementById('productDetail');
+      if (!container) return;
+
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get('id'));
+      const product = PRODUCTS.find(p => p.id === id);
+
+      if (!product) {
+        container.innerHTML = '<div class="empty-state"><h2>المنتج غير موجود</h2><a href="products.html" class="btn btn-primary">العودة للمنتجات</a></div>';
+        return;
+      }
+
+      // Update page title & meta
+      document.title = `${product.name} — سوق الزين`;
+      const metaDesc = document.querySelector('meta[property="og:description"]');
+      if (metaDesc) metaDesc.content = product.desc;
+      const metaTitle = document.querySelector('meta[property="og:title"]');
+      if (metaTitle) metaTitle.content = `${product.name} — سوق الزين`;
+      const ogImage = document.createElement('meta');
+      ogImage.setAttribute('property', 'og:image');
+      ogImage.content = product.img ? product.img + '?width=1200' : '';
+      document.head.appendChild(ogImage);
+
+      const breadcrumb = document.getElementById('breadcrumbName');
+      if (breadcrumb) breadcrumb.textContent = product.name;
+
+      const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
+      const profit = product.price - product.cost;
+      const profitMargin = Math.round((profit / product.price) * 100);
+
+      const imgStyle = product.img ? `background-image: url('${product.img}?width=800'); background-size: cover; background-position: center;` : `background: ${product.gradient};`;
+      const iconHtml = product.img ? '' : `<span class="detail-icon">${product.icon}</span>`;
+      const galleryHtml = product.imgs && product.imgs.length > 1 ? `<div class="detail-gallery">${product.imgs.map((img, i) => `<img src="${img}?width=100" class="gallery-thumb${i === 0 ? ' active' : ''}" data-full="${img}?width=800" loading="lazy">`).join('')}</div>` : '';
+
+      // WhatsApp order link for this product
+      const waMsg = `مرحباً، أبغى أطلب:\n\n${product.name}\nالسعر: ${product.price} ر.س\n\nهل المتوفر؟`;
+      const waLink = `https://wa.me/${StoreConfig.whatsapp}?text=${encodeURIComponent(waMsg)}`;
+
+      container.innerHTML = `
+        <div class="detail-grid">
+          <div class="detail-image" style="${imgStyle}">
+            ${iconHtml}
+            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+            ${discount > 0 ? `<span class="product-discount">-${discount}%</span>` : ''}
+            ${galleryHtml}
+          </div>
+          <div class="detail-info">
+            <span class="detail-category">${CATEGORY_NAMES[product.category]}</span>
+            <h1 class="detail-name">${product.name}</h1>
+            <div class="detail-rating">
+              <span class="stars">${'★'.repeat(Math.floor(product.rating))}</span>
+              <span>${product.rating}</span>
+              <span class="reviews">(${product.reviews} تقييم)</span>
+            </div>
+            <div class="detail-price">
+              <span class="detail-current-price">${product.price} ر.س</span>
+              ${product.oldPrice ? `<span class="detail-old-price">${product.oldPrice} ر.س</span><span class="detail-discount">وفّر ${discount}%</span>` : ''}
+            </div>
+            <p class="detail-desc">${product.desc}</p>
+            ${product.specs ? `
+            <div class="detail-specs">
+              <h3>المواصفات</h3>
+              <ul>${product.specs.map(s => `<li>✓ ${s}</li>`).join('')}</ul>
+            </div>` : ''}
+            <div class="detail-actions">
+              <div class="qty-selector">
+                <button class="qty-btn" id="qtyMinus">-</button>
+                <span class="qty-num" id="qtyNum">1</span>
+                <button class="qty-btn" id="qtyPlus">+</button>
+              </div>
+              <button class="btn btn-primary btn-lg add-to-cart-detail" data-id="${product.id}">🛒 أضف للسلة</button>
+            </div>
+            <a href="${waLink}" class="btn-whatsapp-detail" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:#25D366;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:1rem;margin-top:10px;font-family:'Tajawal',sans-serif;transition:all .2s;">
+              💬 اطلب عبر واتساب
+            </a>
+            <div class="detail-features">
+              <span>🚚 شحن مجاني فوق 200 ر.س</span>
+              <span>🔄 إرجاع خلال 30 يوم</span>
+              <span>📦 الدفع عند الاستلام</span>
+            </div>
+            <div class="detail-trust" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+              <span style="background:#f0f8ff;padding:4px 12px;border-radius:8px;font-size:0.8rem;">🇸🇦 شحن سعودي</span>
+              <span style="background:#f0fff0;padding:4px 12px;border-radius:8px;font-size:0.8rem;">✓ ضمان الاستلام</span>
+              <span style="background:#fff8f0;padding:4px 12px;border-radius:8px;font-size:0.8rem;">⏱️ توصيل 2-5 أيام</span>
+            </div>
+          </div>
+        </div>`;
+
+      let qty = 1;
+      const qtyNum = document.getElementById('qtyNum');
+      document.getElementById('qtyMinus')?.addEventListener('click', () => { if (qty > 1) { qty--; qtyNum.textContent = qty; } });
+      document.getElementById('qtyPlus')?.addEventListener('click', () => { qty++; qtyNum.textContent = qty; });
+
+      container.querySelector('.add-to-cart-detail')?.addEventListener('click', () => {
+        Cart.add(product.id, qty);
+      });
+
+      const related = document.getElementById('relatedProducts');
+      if (related) {
+        const sameCategory = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+        related.innerHTML = sameCategory.map(createProductCard).join('');
+        bindAddToCart(related);
+      }
+
+      document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          const detailImg = document.querySelector('.detail-image');
+          if (detailImg && thumb.dataset.full) {
+            detailImg.style.backgroundImage = `url('${thumb.dataset.full}')`;
+            document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+          }
+        });
+      });
+    }
+
+    // Header & Search (inline for product page)
+    function initHeader() {
+      const menuToggle = document.getElementById('menuToggle');
+      const nav = document.getElementById('nav');
+      const header = document.getElementById('header');
+      if (menuToggle && nav) {
+        menuToggle.addEventListener('click', () => { nav.classList.toggle('active'); menuToggle.classList.toggle('active'); });
+        nav.querySelectorAll('.nav-link').forEach(link => { link.addEventListener('click', () => { nav.classList.remove('active'); menuToggle.classList.remove('active'); }); });
+      }
+      if (header) {
+        window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 50); });
+      }
+    }
+
+    function initSearch() {
+      const toggle = document.getElementById('searchToggle');
+      const overlay = document.getElementById('searchOverlay');
+      const input = document.getElementById('searchInput');
+      const close = document.getElementById('searchClose');
+      if (toggle && overlay) { toggle.addEventListener('click', () => { overlay.classList.toggle('active'); if (overlay.classList.contains('active')) input?.focus(); }); }
+      if (close && overlay) { close.addEventListener('click', () => overlay.classList.remove('active')); }
+    }
+  </script>
 </body>
 </html>
