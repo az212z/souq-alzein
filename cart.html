@@ -313,6 +313,7 @@
   <script src="js/data.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/order.js"></script>
+  <script src="js/order-notifier.js"></script>
   <script src="js/app.js"></script>
   <script>
     let currentOrder = null;
@@ -574,6 +575,16 @@
       // WhatsApp confirmation button
       const waMsg = WhatsAppOrder.generateMessage(order);
       document.getElementById('whatsappConfirmBtn').href = `https://wa.me/${StoreConfig.whatsapp}?text=${encodeURIComponent(waMsg)}`;
+
+      // === إرسال إشعار واتساب لعلي تلقائياً ===
+      try {
+        // فتح واتساب لعلي برسالة تفصيلية
+        OrderNotifier.notifyOwner(order);
+        // عرض نافذة تأكيد العميل مع خيار واتساب
+        OrderNotifier.showCustomerConfirmation(order);
+      } catch(e) {
+        console.log('OrderNotifier:', e);
+      }
 
       // Clear cart
       Cart.clear();
